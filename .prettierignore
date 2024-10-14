@@ -1,0 +1,10 @@
+node_modules
+.next
+build
+.content-collections
+npm-debug.log*
+pnpm-debug.log*
+.env*.local
+*.tsbuildinfo
+next-env.d.ts
+**/.git
