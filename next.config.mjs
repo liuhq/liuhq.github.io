@@ -7,6 +7,7 @@ const nextConfig = {
     trailingSlash: true,
     experimental: {
         typedRoutes: true,
+        optimizePackageImports: ['@remixicon/react'],
     },
 }
 

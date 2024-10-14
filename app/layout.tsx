@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import '@/app/globals.css'
+import '@/styles/globals.css'
 
 export const metadata: Metadata = {
     title: 'Blog',
@@ -7,9 +7,18 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+    // Only dark, only dark...
+    const isDark = true
+
     return (
-        <html>
-            <body>{children}</body>
+        <html className={isDark ? 'mocha' : 'latte'}>
+            <body
+                className="grid min-h-screen w-screen select-none place-items-center overflow-x-hidden bg-base text-text
+                    md:grid-rows-[1fr_auto]"
+            >
+                {children}
+                <footer className="h-12">Footer</footer>
+            </body>
         </html>
     )
 }
