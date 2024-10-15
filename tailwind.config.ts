@@ -44,7 +44,6 @@ const config: Config = {
     resize: false,
     rotate: false,
     saturate: false,
-    scale: false,
     scrollMargin: false,
     scrollPadding: false,
     scrollSnapAlign: false,
@@ -54,9 +53,7 @@ const config: Config = {
     skew: false,
     textTransform: false,
     touchAction: false,
-    transformOrigin: false,
     willChange: false,
-    zIndex: false,
   },
 }
 export default config

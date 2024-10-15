@@ -1,13 +1,21 @@
-import { allPosts, type Post } from 'content-collections'
+import { allPosts } from 'content-collections'
+import Link from 'next/link'
 
 interface Params {
     slug: string
 }
 
 export function generateStaticParams(): Array<Params> {
-    return allPosts.map(v => ({ slug: v._meta.path }))
+    return allPosts.map(v => ({ slug: encodeURIComponent(v._meta.path) }))
 }
 
 export default function Page({ params }: Readonly<{ params: Params }>) {
-    return <h2>Post {params.slug}</h2>
+    return (
+        <div>
+            <Link href="/" className="hover:text-rosewater">
+                主页
+            </Link>
+            <h2>Post {decodeURIComponent(params.slug)}</h2>
+        </div>
+    )
 }
