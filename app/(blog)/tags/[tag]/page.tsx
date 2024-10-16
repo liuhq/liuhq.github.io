@@ -1,5 +1,5 @@
 import { allPosts, type Post } from '@/.content-collections/generated'
-import splitByTag from '@/lib/splitByTag'
+import splitByTag from '@/utils/splitByTag'
 import Link from 'next/link'
 
 interface Params {

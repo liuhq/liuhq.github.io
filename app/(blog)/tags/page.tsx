@@ -1,6 +1,6 @@
 import { allPosts } from '@/.content-collections/generated'
-import sortPostsByDate from '@/lib/sortPostsByDate'
-import splitByTag from '@/lib/splitByTag'
+import sortPostsByDate from '@/utils/sortPostsByDate'
+import splitByTag from '@/utils/splitByTag'
 import { getYear } from 'date-fns'
 import Link from 'next/link'
 

@@ -1,9 +1,9 @@
 import type { Config } from 'tailwindcss'
-import catppuccin from "@catppuccin/tailwindcss";
+import catppuccin from '@catppuccin/tailwindcss'
 
 const config: Config = {
   content: ['./components/**/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{js,ts,jsx,tsx,mdx}'],
-  plugins: [catppuccin],
+  plugins: [catppuccin({ prefix: 'ctp' })],
   corePlugins: {
     backdropBlur: false,
     backdropBrightness: false,
@@ -28,7 +28,7 @@ const config: Config = {
     caretColor: false,
     clear: false,
     container: false,
-    contrast:false,
+    contrast: false,
     dropShadow: false,
     filter: false,
     float: false,

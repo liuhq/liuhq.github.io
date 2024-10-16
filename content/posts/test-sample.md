@@ -1,5 +1,5 @@
 ---
-title: "Markdown 样式测试"
+title: 'Markdown 样式测试'
 date: 2023-03-21
 tags:
   - markdown
@@ -15,16 +15,19 @@ tags:
 ## 标题测试
 
 # 一级标题
+
 ```markdown
 # 一级标题
 ```
 
 ## 二级标题
+
 ```markdown
 ## 二级标题
 ```
 
 ### 三级标题
+
 ```markdown
 ### 三级标题
 ```
@@ -32,29 +35,34 @@ tags:
 ## 文本样式测试
 
 **粗体**
+
 ```markdown
 **粗体**
 ```
 
-*斜体*
+_斜体_
+
 ```markdown
-*斜体*
+_斜体_
 ```
 
 ~~删除线~~
+
 ```markdown
 ~~删除线~~
 ```
 
 组合使用：
-***粗体斜体*** 和 ~~删除线~~
+**_粗体斜体_** 和 ~~删除线~~
+
 ```markdown
-***粗体斜体*** 和 ~~删除线~~
+**_粗体斜体_** 和 ~~删除线~~
 ```
 
 ## 引用测试
 
 > 这是一个引用段落，用于引用他人的话或文献资料。
+
 ```markdown
 > 这是一个引用段落，用于引用他人的话或文献资料。
 ```
@@ -62,6 +70,7 @@ tags:
 ## 列表测试
 
 ### 无序列表
+
 - 项目 1
 - 项目 2
   - 子项目 2.1
@@ -75,6 +84,7 @@ tags:
 ```
 
 ### 有序列表
+
 1. 第一项
 2. 第二项
    1. 子项 2.1
@@ -90,6 +100,7 @@ tags:
 ## 链接与图片测试
 
 ### 链接
+
 [OpenAI 官网](https://openai.com)
 
 ```markdown
@@ -97,6 +108,7 @@ tags:
 ```
 
 ### 图片
+
 ![测试图片](https://via.placeholder.com/150)
 
 ```markdown
@@ -120,18 +132,20 @@ function great(name) {
   console.log(`Hello, ${name}`)
 }
 
-great("Markdown")
+great('Markdown')
 ```
 
-```markdown
+````markdown
 ```js
 function great(name) {
   console.log(`Hello, ${name}`)
 }
 
-great("Markdown")
+great('Markdown')
 ```
-```
+````
+
+````
 
 ## 表格测试
 
@@ -147,7 +161,7 @@ great("Markdown")
 | 1    | 苹果   | 10   |
 | 2    | 香蕉   | 5    |
 | 3    | 橙子   | 8    |
-```
+````
 
 ## 分隔线测试
 

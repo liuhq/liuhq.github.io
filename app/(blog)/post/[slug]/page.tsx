@@ -12,7 +12,7 @@ export function generateStaticParams(): Array<Params> {
 export default function Page({ params }: Readonly<{ params: Params }>) {
     return (
         <div>
-            <Link href="/" className="hover:text-rosewater">
+            <Link href="/" className="hover:text-ctp-rosewater">
                 主页
             </Link>
             <h2>Post {decodeURIComponent(params.slug)}</h2>

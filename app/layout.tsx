@@ -11,10 +11,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     const isDark = true
 
     return (
-        <html className={isDark ? 'mocha' : 'latte'}>
+        <html className={isDark ? 'ctp-mocha' : 'ctp-latte'}>
             <body
-                className="grid min-h-screen w-screen select-none place-items-center overflow-x-hidden bg-base text-text
-                    md:grid-rows-[1fr_auto]"
+                className="grid min-h-screen w-screen select-none place-items-center overflow-x-hidden bg-ctp-base
+                    text-ctp-text md:grid-rows-[1fr_auto]"
             >
                 {children}
                 <footer className="h-12">Footer</footer>
