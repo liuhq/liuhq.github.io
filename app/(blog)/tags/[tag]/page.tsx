@@ -8,7 +8,7 @@ interface Params {
 
 export function generateStaticParams(): Array<Params> {
     const tags = splitByTag(allPosts).tags
-    return tags.map(tag => ({ tag: encodeURIComponent(tag) }))
+    return tags.map(tag => ({ tag }))
 }
 
 export default function Page({ params }: Readonly<{ params: Params }>) {
@@ -22,7 +22,7 @@ export default function Page({ params }: Readonly<{ params: Params }>) {
             </h2>
             <ul>
                 {(tags[decodeURIComponent(params.tag)] as Array<Post>).map((post, i) => (
-                    <li>
+                    <li key={i}>
                         <Link href={{ pathname: `/post/${encodeURIComponent(post._meta.path)}` }}>{post.title}</Link>
                     </li>
                 ))}
