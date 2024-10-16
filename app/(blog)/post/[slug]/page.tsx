@@ -6,7 +6,7 @@ interface Params {
 }
 
 export function generateStaticParams(): Array<Params> {
-    return allPosts.map(v => ({ slug: encodeURIComponent(v._meta.path) }))
+    return allPosts.map(v => ({ slug: v._meta.path }))
 }
 
 export default function Page({ params }: Readonly<{ params: Params }>) {
