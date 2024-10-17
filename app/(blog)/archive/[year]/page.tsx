@@ -1,10 +1,10 @@
 import { allPosts, type Post } from '@/.content-collections/generated'
 import PostList from '@/components/postList'
+import TagList from '@/components/tagList'
 import type { SplitByMonthType } from '@/utils/splitByMonth'
 import splitByMonth from '@/utils/splitByMonth'
 import splitByYear from '@/utils/splitByYear'
 import { RiCalendarLine } from '@remixicon/react'
-import Link from 'next/link'
 
 interface Params {
     year: string
@@ -32,17 +32,9 @@ const YearsTab = ({ years, active }: Readonly<{ years: Array<string>; active: st
         <RiCalendarLine className="mt-0.5 size-6 shrink-0" />
         <ul className="flex flex-wrap gap-x-4 gap-y-2">
             {years.map((year, i) => (
-                <li
-                    key={i}
-                    className={active == year.toString() ? 'test-ctp-rosewater h-fit rounded bg-ctp-surface0' : 'h-fit'}
-                >
-                    <Link
-                        href={{ pathname: `/archive/${year}` }}
-                        className="block border-ctp-surface0 px-2 py-0.5 text-center hover:rounded hover:bg-ctp-surface0"
-                    >
-                        {year}
-                    </Link>
-                </li>
+                <TagList key={i} href={`/archive/${year}`} check={active == year.toString()}>
+                    {year} <span className='text-sm'>年</span>
+                </TagList>
             ))}
         </ul>
     </header>
@@ -56,7 +48,9 @@ const MonthList = ({ posts }: Readonly<{ posts: SplitByMonthType }>) => (
                     {m}
                     <span className="text-lg"> 月</span>
                 </h2>
-                <PostList posts={posts[m] as Array<Post>} />
+                <div className="md:px-4">
+                    <PostList posts={posts[m] as Array<Post>} />
+                </div>
             </li>
         ))}
     </ul>

@@ -1,5 +1,5 @@
 ---
-title: 'Test English Post'
+title: 'Test English Post and A Long Long Long Long Long Long Long Long Long Long Long Long Title'
 date: 2024-10-12
 tags:
   - English

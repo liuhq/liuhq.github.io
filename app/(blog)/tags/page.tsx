@@ -1,27 +1,29 @@
 import { allPosts } from '@/.content-collections/generated'
-import sortPostsByDate from '@/utils/sortPostsByDate'
+import TagList from '@/components/tagList'
 import splitByTag from '@/utils/splitByTag'
-import { getYear } from 'date-fns'
-import Link from 'next/link'
+import { RiPriceTag3Line } from '@remixicon/react'
 
 export default function Page() {
-    const year = getYear(sortPostsByDate(allPosts)[0].date)
-    const tags = splitByTag(allPosts).tags
+    const postsByTag = splitByTag(allPosts)
 
     return (
-        <div>
-            <Link href="/">主页</Link>
-            <h2>
-                <Link href={{ pathname: `/archive/${year}` }}>归档</Link>
-            </h2>
-            <h2>标签</h2>
-            <ul>
-                {tags.map((tag, i) => (
-                    <li key={i}>
-                        <Link href={{ pathname: `/tags/${tag}` }}>{tag}</Link>
-                    </li>
+        <main className="space-y-8">
+            <header className="flex place-items-center gap-4 opacity-45">
+                <RiPriceTag3Line className="mt-0.5 size-8 shrink-0" />
+                <p className="text-4xl font-bold italic">{postsByTag.tags.length} 个标签</p>
+            </header>
+            <ul className="flex flex-wrap gap-x-4 gap-y-2 md:px-12">
+                {postsByTag.tags.map((tag, i) => (
+                    <TagList key={i}  href={`/tags/${tag}`} check={false}>
+                        <span>
+                            {tag}
+                            <span className="ml-2 inline-block rounded bg-ctp-surface0 px-1.5 text-sm">
+                                {postsByTag[tag].length}
+                            </span>
+                        </span>
+                    </TagList>
                 ))}
             </ul>
-        </div>
+        </main>
     )
 }

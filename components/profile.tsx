@@ -83,7 +83,7 @@ const ProfileLatest = ({ posts }: Readonly<{ posts: Array<Post> }>) => {
                     className="group flex items-center self-end text-sm italic hover:text-ctp-rosewater"
                 >
                     查阅所有
-                    <RiArrowRightDoubleFill className="size-5 italic transition-transform group-hover:translate-x-1" />
+                    <RiArrowRightDoubleFill className="size-5 italic transition-transform md:group-hover:translate-x-1" />
                 </Link>
             </header>
             <PostList posts={posts} />
