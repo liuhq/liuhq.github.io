@@ -8,8 +8,8 @@ interface Params {
 export function generateStaticParams(): Array<Params> {
     return allPosts.map(v => ({
         /* fix(nextjs problem when `output: export`):
-            in dev, nextjs can encode uri
-            but in build, nextjs will auto encode uri
+            in dev, nextjs can't encode uri
+            but in build, nextjs will encode uri automatically
         */
         slug: process.env.NODE_ENV == 'development' ? encodeURIComponent(v._meta.path) : v._meta.path,
     }))

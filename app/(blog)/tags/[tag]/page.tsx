@@ -9,8 +9,8 @@ interface Params {
 export function generateStaticParams(): Array<Params> {
     const tags = splitByTag(allPosts).tags
     /* fix(nextjs problem when `output: export`):
-        in dev, nextjs can encode uri
-        but in build, nextjs will auto encode uri
+        in dev, nextjs can't encode uri
+        but in build, nextjs will encode uri automatically
     */
     return tags.map(tag => ({ tag: process.env.NODE_ENV == 'development' ? encodeURIComponent(tag) : tag }))
 }
