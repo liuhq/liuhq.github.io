@@ -8,7 +8,11 @@ interface Params {
 
 export function generateStaticParams(): Array<Params> {
     const tags = splitByTag(allPosts).tags
-    return tags.map(tag => ({ tag }))
+    /* fix(nextjs problem when `output: export`):
+        in dev, nextjs can encode uri
+        but in build, nextjs will auto encode uri
+    */
+    return tags.map(tag => ({ tag: process.env.NODE_ENV == 'development' ? encodeURIComponent(tag) : tag }))
 }
 
 export default function Page({ params }: Readonly<{ params: Params }>) {
@@ -23,7 +27,7 @@ export default function Page({ params }: Readonly<{ params: Params }>) {
             <ul>
                 {(tags[decodeURIComponent(params.tag)] as Array<Post>).map((post, i) => (
                     <li key={i}>
-                        <Link href={{ pathname: `/post/${encodeURIComponent(post._meta.path)}` }}>{post.title}</Link>
+                        <Link href={{ pathname: `/post/${post._meta.path}` }}>{post.title}</Link>
                     </li>
                 ))}
             </ul>

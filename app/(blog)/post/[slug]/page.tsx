@@ -6,7 +6,13 @@ interface Params {
 }
 
 export function generateStaticParams(): Array<Params> {
-    return allPosts.map(v => ({ slug: v._meta.path }))
+    return allPosts.map(v => ({
+        /* fix(nextjs problem when `output: export`):
+            in dev, nextjs can encode uri
+            but in build, nextjs will auto encode uri
+        */
+        slug: process.env.NODE_ENV == 'development' ? encodeURIComponent(v._meta.path) : v._meta.path,
+    }))
 }
 
 export default function Page({ params }: Readonly<{ params: Params }>) {
