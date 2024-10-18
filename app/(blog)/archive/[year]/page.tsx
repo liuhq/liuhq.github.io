@@ -33,7 +33,7 @@ const YearsTab = ({ years, active }: Readonly<{ years: Array<string>; active: st
         <ul className="flex flex-wrap gap-x-4 gap-y-2">
             {years.map((year, i) => (
                 <TagList key={i} href={`/archive/${year}`} check={active == year.toString()}>
-                    {year} <span className='text-sm'>年</span>
+                    {year} <span className="text-sm">年</span>
                 </TagList>
             ))}
         </ul>
@@ -44,7 +44,7 @@ const MonthList = ({ posts }: Readonly<{ posts: SplitByMonthType }>) => (
     <ul className="space-y-8">
         {posts.months.map((m, i) => (
             <li key={i}>
-                <h2 className="text-4xl font-bold italic opacity-45">
+                <h2 className="text-4xl font-bold italic text-ctp-lavender opacity-90">
                     {m}
                     <span className="text-lg"> 月</span>
                 </h2>

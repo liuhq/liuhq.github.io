@@ -1,4 +1,4 @@
-import { defineCollection, defineConfig } from '@content-collections/core'
+import { defineCollection, defineConfig, z } from '@content-collections/core'
 
 const posts = defineCollection({
     name: 'posts',
@@ -11,6 +11,16 @@ const posts = defineCollection({
     }),
 })
 
+const data = defineCollection({
+    name: 'data',
+    parser: 'json',
+    directory: 'content/data',
+    include: ['**/*.json'],
+    schema: z => ({
+        home_url: z.string(),
+    }),
+})
+
 export default defineConfig({
-    collections: [posts],
+    collections: [posts, data],
 })

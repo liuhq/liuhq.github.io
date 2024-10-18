@@ -27,7 +27,7 @@ const ProfileCover = () => {
 const ProfileInfo = ({ prefLangs, prefDev }: Readonly<{ prefLangs: Array<string>; prefDev: Array<string> }>) => {
     return (
         <div className="space-y-1">
-            <h1 className="text-3xl text-ctp-rosewater">
+            <h1 className="text-3xl text-ctp-lavender">
                 漆予
                 <span className="ml-2 text-xl italic leading-9 text-ctp-subtext0">Chiyuu</span>
             </h1>
@@ -53,7 +53,7 @@ const ProfileInfo = ({ prefLangs, prefDev }: Readonly<{ prefLangs: Array<string>
             </div>
             <div className="flex place-items-center">
                 联系？
-                <ul className="ml-2 inline-flex gap-2 [&_svg]:block [&_svg]:size-5 hover:[&_svg]:text-ctp-rosewater">
+                <ul className="ml-2 inline-flex gap-2 [&_svg]:block [&_svg]:size-5 hover:[&_svg]:text-ctp-lavender">
                     <li>
                         <a href="https://github.com/liuhq" target="_blank">
                             <RiGithubFill />
@@ -80,7 +80,7 @@ const ProfileLatest = ({ posts }: Readonly<{ posts: Array<Post> }>) => {
                 </h2>
                 <Link
                     href={`/archive/${getYear(posts[0].date)}`}
-                    className="group flex items-center self-end text-sm italic hover:text-ctp-rosewater"
+                    className="group flex items-center self-end text-sm italic hover:text-ctp-lavender"
                 >
                     查阅所有
                     <RiArrowRightDoubleFill className="size-5 italic transition-transform md:group-hover:translate-x-1" />

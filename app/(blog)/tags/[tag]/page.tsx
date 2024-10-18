@@ -1,6 +1,7 @@
 import { allPosts, type Post } from '@/.content-collections/generated'
+import PostList from '@/components/postList'
 import splitByTag from '@/utils/splitByTag'
-import Link from 'next/link'
+import { RiPriceTag3Line } from '@remixicon/react'
 
 interface Params {
     tag: string
@@ -19,18 +20,14 @@ export default function Page({ params }: Readonly<{ params: Params }>) {
     const tags = splitByTag(allPosts)
 
     return (
-        <div>
-            <h2>标签：{params.tag}</h2>
-            <h2>
-                <Link href="/tags">返回</Link>
-            </h2>
-            <ul>
-                {(tags[decodeURIComponent(params.tag)] as Array<Post>).map((post, i) => (
-                    <li key={i}>
-                        <Link href={{ pathname: `/post/${post._meta.path}` }}>{post.title}</Link>
-                    </li>
-                ))}
+        <main className="space-y-8">
+            <header className="flex place-items-center gap-4 text-ctp-lavender opacity-90">
+                <RiPriceTag3Line className="mt-0.5 size-8 shrink-0" />
+                <h2 className="text-4xl font-bold italic">标签：{decodeURIComponent(params.tag)}</h2>
+            </header>
+            <ul className="space-y-8 md:px-4">
+                <PostList posts={tags[decodeURIComponent(params.tag)] as Array<Post>} />
             </ul>
-        </div>
+        </main>
     )
 }

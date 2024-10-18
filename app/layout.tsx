@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import '@/styles/globals.css'
+import Footer from '@/components/footer'
 
 export const metadata: Metadata = {
     title: 'Blog',
@@ -12,12 +13,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 
     return (
         <html className={isDark ? 'ctp-mocha' : 'ctp-latte'}>
+            {/* <html className="ctp-latte dark:ctp-mocha"> */}
             <body
-                className="m-auto grid gap-8 min-h-screen select-none place-items-center overflow-x-hidden bg-ctp-base
-                    text-ctp-text md:w-[768px] grid-rows-[1fr_auto]"
+                className="m-auto grid min-h-screen select-none grid-rows-[1fr_auto] place-items-center gap-8
+                    overflow-x-hidden bg-ctp-base text-ctp-text md:w-[768px]"
             >
                 {children}
-                <footer className="h-12">Footer</footer>
+                <Footer />
             </body>
         </html>
     )
