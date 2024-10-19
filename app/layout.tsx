@@ -8,12 +8,14 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-    // Only dark, only dark...
-    const isDark = true
-
     return (
-        <html className={isDark ? 'ctp-mocha' : 'ctp-latte'}>
-            {/* <html className="ctp-latte dark:ctp-mocha"> */}
+        <html className="dark ctp-latte dark:ctp-mocha">
+            {/*
+              * only use dark mode now
+                <head>
+                    <script src="/darkmode.js"></script>
+                </head>
+            */}
             <body
                 className="m-auto grid min-h-screen select-none grid-rows-[1fr_auto] place-items-center gap-8
                     overflow-x-hidden bg-ctp-base text-ctp-text md:w-[768px]"

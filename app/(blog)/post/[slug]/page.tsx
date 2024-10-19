@@ -1,4 +1,8 @@
 import { allPosts } from 'content-collections'
+import { format } from 'date-fns'
+import Markdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw'
+import remarkGfm from 'remark-gfm'
 
 interface Params {
     slug: string
@@ -15,9 +19,56 @@ export function generateStaticParams(): Array<Params> {
 }
 
 export default function Page({ params }: Readonly<{ params: Params }>) {
+    const post = allPosts.find(post => post._meta.path == decodeURIComponent(params.slug))
+
     return (
-        <div>
-            <h2>Post {decodeURIComponent(params.slug)}</h2>
-        </div>
+        <main className="space-y-12">
+            {post ? (
+                <>
+                    <header className="rounded-md bg-ctp-surface0 p-4 text-ctp-subtext1 shadow-md shadow-ctp-crust">
+                        <p className="text-lg">{post.title}</p>
+                        <p>---</p>
+                        <p className="text-sm text-ctp-subtext0">更新日期：{format(post.date, 'yyyy 年 M 月 d 日')}</p>
+                    </header>
+                    <article
+                        className="prose max-w-none select-text text-ctp-text dark:prose-invert
+                            selection:bg-ctp-lavender selection:text-ctp-crust prose-headings:text-ctp-text
+                            prose-h2:text-ctp-lavender prose-h3:text-ctp-subtext0 prose-h4:text-ctp-overlay1
+                            prose-a:text-ctp-lavender prose-a:no-underline hover:prose-a:underline
+                            prose-blockquote:border-ctp-surface0 prose-blockquote:text-ctp-subtext0
+                            prose-strong:text-ctp-text prose-kbd:select-none prose-kbd:border prose-kbd:border-b-4
+                            prose-kbd:border-ctp-surface2 prose-kbd:text-ctp-subtext1 prose-kbd:shadow-none
+                            hover:prose-kbd:border-ctp-lavender hover:prose-kbd:text-ctp-lavender prose-pre:rounded
+                            prose-pre:bg-ctp-crust prose-pre:text-ctp-text prose-img:mx-auto prose-img:rounded
+                            prose-hr:border-ctp-surface2 prose-inline-code:rounded prose-inline-code:bg-ctp-surface0
+                            prose-inline-code:px-2 prose-inline-code:py-1 prose-inline-code:text-ctp-subtext1
+                            prose-inline-code:before:content-[''] prose-inline-code:after:content-[''] md:prose-hr:mx-12"
+                    >
+                        <Markdown
+                            remarkPlugins={[remarkGfm]}
+                            rehypePlugins={[rehypeRaw]}
+                            components={{
+                                details: ({ children }) => (
+                                    <details
+                                        className="group select-text rounded-md border border-ctp-surface2 p-4
+                                            text-ctp-lavender"
+                                    >
+                                        {children}
+                                    </details>
+                                ),
+                                summary: ({ children }) => (
+                                    <summary className="select-none group-open:mb-4">{children}</summary>
+                                ),
+                            }}
+                        >
+                            {post.content}
+                        </Markdown>
+                    </article>
+                    <footer className="text-center text-xl italic text-ctp-overlay1">··· 完 ···</footer>
+                </>
+            ) : (
+                <p>内容遗失在世界的角落</p>
+            )}
+        </main>
     )
 }

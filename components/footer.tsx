@@ -3,7 +3,11 @@ import { RiCopyrightLine } from '@remixicon/react'
 import { constructNow, getYear } from 'date-fns'
 
 export default function Footer() {
-    const profile = allData.find(data => data._meta.path == 'profile')
+    const profile = allData.find(data => data._meta.path == 'profile')!
+
+    if (!profile) {
+        console.error("'profile' is not found")
+    }
 
     return (
         <footer className="h-14 text-sm text-ctp-subtext0 md:flex md:place-items-center md:gap-2">
@@ -11,7 +15,7 @@ export default function Footer() {
                 <RiCopyrightLine className="inline-block size-4" />
                 &nbsp;
                 {`2022 - ${getYear(constructNow(new Date()))}`}&nbsp;&nbsp;|&nbsp;&nbsp;
-                <RefLink href={profile ? profile.home_url : '/'}>漆予 Chiyuu</RefLink>
+                <RefLink href={profile.home_url}>漆予 Chiyuu</RefLink>
             </p>
             <p className="hidden md:block">-</p>
             <p>

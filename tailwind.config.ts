@@ -1,9 +1,18 @@
 import type { Config } from 'tailwindcss'
+import type { PluginAPI } from 'tailwindcss/types/config'
 import catppuccin from '@catppuccin/tailwindcss'
+import typography from '@tailwindcss/typography'
 
 const config: Config = {
   content: ['./components/**/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{js,ts,jsx,tsx,mdx}'],
-  plugins: [catppuccin({ prefix: 'ctp' })],
+  darkMode: 'selector',
+  plugins: [
+    catppuccin({ prefix: 'ctp' }),
+    typography,
+    function ({ addVariant }: PluginAPI) {
+      addVariant('prose-inline-code', '&.prose :where(:not(pre)>code):not(:where([class~="not-prose"] *))')
+    },
+  ],
   corePlugins: {
     backdropBlur: false,
     backdropBrightness: false,
