@@ -28,43 +28,49 @@ export default async function PinSomething() {
                 <RiPushpin2Fill className="mr-1 size-5" />
                 一些东西
             </h2>
-            <ul className="flex flex-col flex-wrap items-start gap-2">
-                {pinRes.map((pin, i) => (
-                    <li key={i} className="w-full space-y-2 rounded border border-ctp-surface2 px-2 py-1">
-                        <a href={pin.html_url} target="_blank" className="hover:text-ctp-lavender">
-                            {pin.full_name}
-                        </a>
-                        {pin.description && (
-                            <p className="border-l-2 border-ctp-overlay0 pl-2 text-sm text-ctp-overlay1">
-                                {pin.description}
-                            </p>
-                        )}
-                        <footer className="flex justify-between text-sm text-ctp-subtext0">
-                            <p className="flex space-x-2">
-                                <span className="flex place-items-center gap-1">
-                                    <RiStarLine className="size-4 text-ctp-subtext1" />
-                                    {pin.stargazers_count}
-                                </span>
-                                <span className="flex place-items-center gap-1">
-                                    <RiGitForkLine className="size-4 text-ctp-subtext1" />
-                                    {pin.forks_count}
-                                </span>
-                                <span className="flex place-items-center gap-1">
-                                    <RiErrorWarningLine className="size-4 text-ctp-subtext1" />
-                                    {pin.open_issues_count}
-                                </span>
-                                {pin.license?.name && (
-                                    <span className="flex place-items-center gap-1">
-                                        <RiAwardLine className="size-4 text-ctp-subtext1" />
-                                        {pin.license.name}
-                                    </span>
-                                )}
-                            </p>
-                            <span>{pin.language}</span>
-                        </footer>
-                    </li>
-                ))}
-            </ul>
+            {pinRes.length > 0 ? (
+                <PinList pinRes={pinRes} />
+            ) : (
+                <p className="pt-8 text-center italic text-ctp-overlay1 md:pt-[30%]">目前没什么啦……</p>
+            )}
         </div>
     )
 }
+
+const PinList = ({ pinRes }: Readonly<{ pinRes: Array<GitHubApiType> }>) => (
+    <ul className="flex flex-col flex-wrap items-start gap-2">
+        {pinRes.map((pin, i) => (
+            <li key={i} className="w-full space-y-2 rounded border border-ctp-surface2 px-2 py-1">
+                <a href={pin.html_url} target="_blank" className="hover:text-ctp-lavender">
+                    {pin.full_name}
+                </a>
+                {pin.description && (
+                    <p className="border-l-2 border-ctp-overlay0 pl-2 text-sm text-ctp-overlay1">{pin.description}</p>
+                )}
+                <footer className="flex justify-between text-sm text-ctp-subtext0">
+                    <p className="flex space-x-2">
+                        <span className="flex place-items-center gap-1">
+                            <RiStarLine className="size-4 text-ctp-subtext1" />
+                            {pin.stargazers_count}
+                        </span>
+                        <span className="flex place-items-center gap-1">
+                            <RiGitForkLine className="size-4 text-ctp-subtext1" />
+                            {pin.forks_count}
+                        </span>
+                        <span className="flex place-items-center gap-1">
+                            <RiErrorWarningLine className="size-4 text-ctp-subtext1" />
+                            {pin.open_issues_count}
+                        </span>
+                        {pin.license?.name && (
+                            <span className="flex place-items-center gap-1">
+                                <RiAwardLine className="size-4 text-ctp-subtext1" />
+                                {pin.license.name}
+                            </span>
+                        )}
+                    </p>
+                    <span>{pin.language}</span>
+                </footer>
+            </li>
+        ))}
+    </ul>
+)
