@@ -48,7 +48,7 @@ const MonthList = ({ posts }: Readonly<{ posts: SplitByMonthType }>) => (
                     {m}
                     <span className="text-lg"> 月</span>
                 </h2>
-                <div className="md:px-4">
+                <div className="">
                     <PostList posts={posts[m] as Array<Post>} />
                 </div>
             </li>

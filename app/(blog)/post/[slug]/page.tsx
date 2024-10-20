@@ -1,5 +1,7 @@
+import { RiExternalLinkLine, RiPriceTag3Fill } from '@remixicon/react'
 import { allPosts } from 'content-collections'
-import { format } from 'date-fns'
+import { format, formatISO } from 'date-fns'
+import Link from 'next/link'
 import Markdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
@@ -26,9 +28,28 @@ export default function Page({ params }: Readonly<{ params: Params }>) {
             {post ? (
                 <>
                     <header className="rounded-md bg-ctp-surface0 p-4 text-ctp-subtext1 shadow-md shadow-ctp-crust">
-                        <p className="text-lg">{post.title}</p>
+                        <p className="text-lg font-bold">{post.title}</p>
                         <p>---</p>
-                        <p className="text-sm text-ctp-subtext0">更新日期：{format(post.date, 'yyyy 年 M 月 d 日')}</p>
+                        <p className="text-sm text-ctp-subtext0">
+                            更新日期：
+                            <time dateTime={formatISO(post.date)}>{format(post.date, 'yyyy 年 M 月 d 日')}</time>
+                        </p>
+                        <div className="mt-2 flex place-items-center gap-2 text-sm">
+                            <RiPriceTag3Fill className="size-4 text-ctp-lavender" />
+                            <ul className="flex gap-2">
+                                {post.tags.map((tag, i) => (
+                                    <li key={i}>
+                                        <Link
+                                            href={{ pathname: `/tags/${tag}` }}
+                                            className="block px-2 py-0.5 text-center transition-colors md:hover:rounded
+                                                md:hover:bg-ctp-surface1"
+                                        >
+                                            {tag}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </header>
                     <article
                         className="prose max-w-none select-text text-ctp-text dark:prose-invert
@@ -39,7 +60,8 @@ export default function Page({ params }: Readonly<{ params: Params }>) {
                             prose-strong:text-ctp-text prose-kbd:select-none prose-kbd:border prose-kbd:border-b-4
                             prose-kbd:border-ctp-surface2 prose-kbd:text-ctp-subtext1 prose-kbd:shadow-none
                             hover:prose-kbd:border-ctp-lavender hover:prose-kbd:text-ctp-lavender prose-pre:rounded
-                            prose-pre:bg-ctp-crust prose-pre:text-ctp-text prose-img:mx-auto prose-img:rounded
+                            prose-pre:bg-ctp-crust prose-pre:text-ctp-text prose-th:text-ctp-lavender prose-img:mx-auto
+                            prose-img:rounded prose-img:shadow-md prose-img:shadow-ctp-crust
                             prose-hr:border-ctp-surface2 prose-inline-code:rounded prose-inline-code:bg-ctp-surface0
                             prose-inline-code:px-2 prose-inline-code:py-1 prose-inline-code:text-ctp-subtext1
                             prose-inline-code:before:content-[''] prose-inline-code:after:content-[''] md:prose-hr:mx-12"
@@ -51,13 +73,21 @@ export default function Page({ params }: Readonly<{ params: Params }>) {
                                 details: ({ children }) => (
                                     <details
                                         className="group select-text rounded-md border border-ctp-surface2 p-4
-                                            text-ctp-lavender"
+                                            text-ctp-text"
                                     >
                                         {children}
                                     </details>
                                 ),
                                 summary: ({ children }) => (
-                                    <summary className="select-none group-open:mb-4">{children}</summary>
+                                    <summary className="select-none text-ctp-lavender group-open:mb-4">
+                                        {children}
+                                    </summary>
+                                ),
+                                a: ({ children }) => (
+                                    <a className="flex place-items-center gap-0.5">
+                                        {children}
+                                        <RiExternalLinkLine className="size-[18px]" />
+                                    </a>
                                 ),
                             }}
                         >

@@ -25,9 +25,9 @@ export default function Page({ params }: Readonly<{ params: Params }>) {
                 <RiPriceTag3Line className="mt-0.5 size-8 shrink-0" />
                 <h2 className="text-4xl font-bold italic">标签：{decodeURIComponent(params.tag)}</h2>
             </header>
-            <ul className="space-y-8 md:px-4">
+            <div className="space-y-8">
                 <PostList posts={tags[decodeURIComponent(params.tag)] as Array<Post>} />
-            </ul>
+            </div>
         </main>
     )
 }

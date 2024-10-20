@@ -13,7 +13,7 @@ export default function Profile() {
 
     return (
         <div className="flex flex-col gap-6">
-            <ProfileCover />
+            {/* <ProfileCover /> */}
             <ProfileInfo prefLangs={prefLangs} prefDev={prefDev} />
             <ProfileLatest posts={latest} />
         </div>
@@ -21,7 +21,25 @@ export default function Profile() {
 }
 
 const ProfileCover = () => {
-    return <div>Cover</div>
+    return (
+        <div>{`
+
+               ╱▔ ▔▔▔▔▔▔▔▔▔▔▔▔▔▔╲
+              ▕  Only Bug can do │
+               ╲▁▁▁▁▁▁▁▁▁_    ▁▁╱
+                            ╲╱          ▄▀▄
+                                      ▄▀   ▀▀▄▄
+                                   ▄▀           ▀▀▄▄
+                                ▄▀                   ▀▀▀ █
+                             ▄▀     ⬤                   █
+                             █                           █
+                       ▄▀▀▬▬          ▔█▃     ⬤         █
+                       ▀▄▄▄▄▄▄▃                          █
+                                      ▄▄▄▀▀▬▬    ▂       █
+                                     ▀▁▁▁▂▂▂▅▀▀▀   ▀▀▃▃▃█
+
+        `}</div>
+    )
 }
 
 const ProfileInfo = ({ prefLangs, prefDev }: Readonly<{ prefLangs: Array<string>; prefDev: Array<string> }>) => {
@@ -51,9 +69,16 @@ const ProfileInfo = ({ prefLangs, prefDev }: Readonly<{ prefLangs: Array<string>
                     ))}
                 </ul>
             </div>
-            <div className="flex place-items-center">
-                联系？
-                <ul className="ml-2 inline-flex gap-2 [&_svg]:block [&_svg]:size-5 hover:[&_svg]:text-ctp-lavender">
+            <div className="pt-4">
+                <ul
+                    className="flex place-items-center gap-2 [&_svg]:block [&_svg]:size-5
+                        hover:[&_svg]:text-ctp-lavender"
+                >
+                    <li>
+                        <Link href="/about" className="text-sm italic text-ctp-subtext0 hover:text-ctp-lavender">
+                            更多关于？
+                        </Link>
+                    </li>
                     <li>
                         <a href="https://github.com/liuhq" target="_blank">
                             <RiGithubFill />
@@ -86,7 +111,9 @@ const ProfileLatest = ({ posts }: Readonly<{ posts: Array<Post> }>) => {
                     <RiArrowRightDoubleFill className="size-5 italic transition-transform md:group-hover:translate-x-1" />
                 </Link>
             </header>
-            <PostList posts={posts} />
+            <div className="md:-ml-5">
+                <PostList posts={posts} />
+            </div>
         </div>
     )
 }

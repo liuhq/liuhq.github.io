@@ -21,6 +21,9 @@ export default function BlogLayout({ children }: Readonly<{ children: React.Reac
                 <NavLink href="/tags" active={segments[0] == 'tags'}>
                     标签
                 </NavLink>
+                <NavLink href="/about" active={segments[0] == 'about'}>
+                    关于
+                </NavLink>
             </nav>
             {children}
         </div>

@@ -1,3 +1,17 @@
 {
-  "home_url": "https://liuhq.github.io/"
+  "home_url": "https://liuhq.github.io/",
+  "pin": [
+    {
+      "owner": "liuhq",
+      "repo": "liuhq.github.io"
+    },
+    {
+      "owner": "liuhq",
+      "repo": "neovim-config"
+    },
+    {
+      "owner": "liuhq",
+      "repo": "Blender_Zhen_Switcher"
+    }
+  ]
 }
