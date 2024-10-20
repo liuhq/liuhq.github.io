@@ -1,17 +1,25 @@
 {
+  "author": {
+    "full_name": "漆予 Chiyuu",
+    "cn_name": "漆予",
+    "en_name": "Chiyuu"
+  },
   "home_url": "https://liuhq.github.io/",
+  "prefList": [
+    {
+      "name": "偏好语言",
+      "items": ["JS/TS", "Rust", "C", "C# in Unity", "Racket"]
+    },
+    {
+      "name": "开发涉及",
+      "items": ["WEB", "独立游戏", "桌面应用"]
+    }
+  ],
   "pin": [
     {
       "owner": "liuhq",
       "repo": "liuhq.github.io"
-    },
-    {
-      "owner": "liuhq",
-      "repo": "neovim-config"
-    },
-    {
-      "owner": "liuhq",
-      "repo": "Blender_Zhen_Switcher"
     }
-  ]
+  ],
+  "notfound_words": ["似乎踏入了荒芜的赛博原野……", "不如再到处找找？", "看看上面的链接，或许有办法回去 :P"]
 }

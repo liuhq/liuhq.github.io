@@ -1,4 +1,4 @@
-import { allPosts, type Post } from '@/.content-collections/generated'
+import { allData, allPosts, type Post } from '@/.content-collections/generated'
 import Tag from '@/components/tag'
 import getLatestPosts from '@/utils/getLatestPosts'
 import { RiArrowRightDoubleFill, RiBilibiliFill, RiGithubFill, RiQuillPenFill } from '@remixicon/react'
@@ -7,68 +7,44 @@ import Link from 'next/link'
 import PostList from './postList'
 
 export default function Profile() {
-    const prefLangs = ['JS/TS', 'Rust', 'C', 'C# in Unity', 'Racket']
-    const prefDev = ['WEB', '独立游戏', '桌面应用']
     const latest = getLatestPosts(allPosts)
+    const profile = allData.find(data => data._meta.path == 'profile')!
+
+    if (!profile) {
+        console.error("'profile' is not found")
+    }
 
     return (
         <div className="flex flex-col gap-6">
-            {/* <ProfileCover /> */}
-            <ProfileInfo prefLangs={prefLangs} prefDev={prefDev} />
+            <ProfileInfo cn_name={profile.author.cn_name} en_name={profile.author.en_name} prefs={profile.prefList} />
             <ProfileLatest posts={latest} />
         </div>
     )
 }
 
-const ProfileCover = () => {
-    return (
-        <div>{`
-
-               ╱▔ ▔▔▔▔▔▔▔▔▔▔▔▔▔▔╲
-              ▕  Only Bug can do │
-               ╲▁▁▁▁▁▁▁▁▁_    ▁▁╱
-                            ╲╱          ▄▀▄
-                                      ▄▀   ▀▀▄▄
-                                   ▄▀           ▀▀▄▄
-                                ▄▀                   ▀▀▀ █
-                             ▄▀     ⬤                   █
-                             █                           █
-                       ▄▀▀▬▬          ▔█▃     ⬤         █
-                       ▀▄▄▄▄▄▄▃                          █
-                                      ▄▄▄▀▀▬▬    ▂       █
-                                     ▀▁▁▁▂▂▂▅▀▀▀   ▀▀▃▃▃█
-
-        `}</div>
-    )
-}
-
-const ProfileInfo = ({ prefLangs, prefDev }: Readonly<{ prefLangs: Array<string>; prefDev: Array<string> }>) => {
+const ProfileInfo = ({
+    cn_name,
+    en_name,
+    prefs,
+}: Readonly<{ cn_name: string; en_name: string; prefs: Array<{ name: string; items: Array<string> }> }>) => {
     return (
         <div className="space-y-1">
             <h1 className="text-3xl text-ctp-lavender">
-                漆予
-                <span className="ml-2 text-xl italic leading-9 text-ctp-subtext0">Chiyuu</span>
+                {cn_name}
+                <span className="ml-2 text-xl italic leading-9 text-ctp-subtext0">{en_name}</span>
             </h1>
-            <div>
-                偏好语言
-                <ul className="ml-2 inline-flex gap-1">
-                    {prefLangs.map((v, i) => (
-                        <li key={i}>
-                            <Tag>{v}</Tag>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <div>
-                开发涉及
-                <ul className="ml-2 inline-flex gap-1">
-                    {prefDev.map((v, i) => (
-                        <li key={i}>
-                            <Tag>{v}</Tag>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            {prefs.map(pref => (
+                <div>
+                    {pref.name}
+                    <ul className="ml-2 inline-flex gap-1">
+                        {pref.items.map((v, i) => (
+                            <li key={i}>
+                                <Tag>{v}</Tag>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            ))}
             <div className="pt-4">
                 <ul
                     className="flex place-items-center gap-2 [&_svg]:block [&_svg]:size-5

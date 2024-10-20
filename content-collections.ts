@@ -17,7 +17,18 @@ const data = defineCollection({
     directory: 'content/data',
     include: ['**/*.json'],
     schema: z => ({
+        author: z.object({
+            full_name: z.string(),
+            cn_name: z.string(),
+            en_name: z.string(),
+        }),
         home_url: z.string(),
+        prefList: z.array(
+            z.object({
+                name: z.string(),
+                items: z.array(z.string()),
+            })
+        ),
         pin: z
             .array(
                 z.object({
@@ -27,6 +38,7 @@ const data = defineCollection({
             )
             .min(0)
             .max(4),
+        notfound_words: z.array(z.string()),
     }),
 })
 
