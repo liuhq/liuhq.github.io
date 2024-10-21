@@ -33,8 +33,8 @@ const ProfileInfo = ({
                 {cn_name}
                 <span className="ml-2 text-xl italic leading-9 text-ctp-subtext0">{en_name}</span>
             </h1>
-            {prefs.map(pref => (
-                <div>
+            {prefs.map((pref, i) => (
+                <div key={i}>
                     {pref.name}
                     <ul className="ml-2 inline-flex gap-1">
                         {pref.items.map((v, i) => (
