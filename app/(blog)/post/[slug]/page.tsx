@@ -83,8 +83,8 @@ export default function Page({ params }: Readonly<{ params: Params }>) {
                                         {children}
                                     </summary>
                                 ),
-                                a: ({ children }) => (
-                                    <a className="inline-flex place-items-center gap-0.5">
+                                a: ({ children, href }) => (
+                                    <a href={href} className="inline-flex place-items-center gap-0.5" target="_blank">
                                         {children}
                                         <RiExternalLinkLine className="size-[18px]" />
                                     </a>

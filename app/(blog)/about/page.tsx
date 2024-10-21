@@ -39,8 +39,8 @@ export default function Page() {
                         summary: ({ children }) => (
                             <summary className="select-none text-ctp-lavender group-open:mb-4">{children}</summary>
                         ),
-                        a: ({ children }) => (
-                            <a className="inline-flex place-items-center gap-0.5">
+                        a: ({ children, href }) => (
+                            <a href={href} className="inline-flex place-items-center gap-0.5" target="_blank">
                                 {children}
                                 <RiExternalLinkLine className="size-[18px]" />
                             </a>
