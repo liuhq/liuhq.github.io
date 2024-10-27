@@ -1,7 +1,12 @@
 import { allPosts } from '@/.content-collections/generated'
-import TagList from '@/components/tagList'
+import Tag from '@/components/tag'
 import splitByTag from '@/utils/splitByTag'
 import { RiPriceTag3Line } from '@remixicon/react'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: '标签 | 漆予的笔记',
+}
 
 export default function Page() {
     const postsByTag = splitByTag(allPosts)
@@ -12,16 +17,16 @@ export default function Page() {
                 <RiPriceTag3Line className="mt-0.5 size-8 shrink-0" />
                 <h2 className="text-4xl font-bold italic">{postsByTag.tags.length} 个标签</h2>
             </header>
-            <ul className="flex flex-wrap gap-x-4 gap-y-2 md:px-12">
+            <ul className="flex flex-wrap gap-x-4 gap-y-2">
                 {postsByTag.tags.map((tag, i) => (
-                    <TagList key={i} href={`/tags/${tag}`} check={false}>
+                    <Tag key={i} href={`/tags/${tag}`}>
                         <span>
                             {tag}
                             <span className="ml-2 inline-block rounded bg-ctp-surface0 px-1.5 text-sm">
                                 {postsByTag[tag].length}
                             </span>
                         </span>
-                    </TagList>
+                    </Tag>
                 ))}
             </ul>
         </main>

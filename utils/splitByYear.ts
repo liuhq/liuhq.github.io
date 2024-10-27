@@ -1,6 +1,6 @@
 import type { Post } from '@/.content-collections/generated'
-import sortPostsByDate from './sortPostsByDate'
 import { getYear } from 'date-fns'
+import sortPostsByDate from './sortPostsByDate'
 
 interface SplitByYearType {
     years: Array<string>

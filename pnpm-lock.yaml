@@ -25,6 +25,9 @@ importers:
             rehype-raw:
                 specifier: ^7.0.0
                 version: 7.0.0
+            rehype-slug:
+                specifier: ^6.0.0
+                version: 6.0.0
             remark-gfm:
                 specifier: ^4.0.0
                 version: 4.0.0
@@ -74,6 +77,9 @@ importers:
             prettier-plugin-tailwindcss:
                 specifier: ^0.6.8
                 version: 0.6.8(prettier@3.3.3)
+            tailwind-scrollbar:
+                specifier: ^3.1.0
+                version: 3.1.0(tailwindcss@3.4.13)
             tailwindcss:
                 specifier: ^3.4.1
                 version: 3.4.13
@@ -1261,6 +1267,12 @@ packages:
                 integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==,
             }
 
+    github-slugger@2.0.0:
+        resolution:
+            {
+                integrity: sha512-IaOQ9puYtjrkq7Y0Ygl9KDZnrf/aiUJYUpVf89y8kyaxbRG7Y1SrX/jaumrv81vc61+kiMempujsM3Yw7w5qcw==,
+            }
+
     glob-parent@5.1.2:
         resolution:
             {
@@ -1308,6 +1320,12 @@ packages:
                 integrity: sha512-Er/Iixbc7IEa7r/XLtuG52zoqn/b3Xng/w6aZQ0xGVxzhw5xUFxcRqdPzP6yFi/4HBYRaifaI5fQ1RH8n0ZeOQ==,
             }
 
+    hast-util-heading-rank@3.0.0:
+        resolution:
+            {
+                integrity: sha512-EJKb8oMUXVHcWZTDepnr+WNbfnXKFNf9duMesmr4S8SXTJBJ9M4Yok08pu9vxdJwdlGRhVumk9mEhkEvKGifwA==,
+            }
+
     hast-util-parse-selector@4.0.0:
         resolution:
             {
@@ -1330,6 +1348,12 @@ packages:
         resolution:
             {
                 integrity: sha512-3KKrV5ZVI8if87DVSi1vDeByYrkGzg4mEfeu4alwgmmIeARiBLKCZS2uw5Gb6nU9x9Yufyj3iudm6i7nl52PFw==,
+            }
+
+    hast-util-to-string@3.0.1:
+        resolution:
+            {
+                integrity: sha512-XelQVTDWvqcl3axRfI0xSeoVKzyIFPwsAGSLIsKdJKQMXDYJS4WYrBNF/8J7RdhIcFI2BOHgAifggsvsxp/3+A==,
             }
 
     hast-util-whitespace@3.0.0:
@@ -2498,6 +2522,12 @@ packages:
                 integrity: sha512-/aE8hCfKlQeA8LmyeyQvQF3eBiLRGNlfBJEvWH7ivp9sBqs7TNqBL5X3v157rM4IFETqDnIOO+z5M/biZbo9Ww==,
             }
 
+    rehype-slug@6.0.0:
+        resolution:
+            {
+                integrity: sha512-lWyvf/jwu+oS5+hL5eClVd3hNdmwM1kAC0BUvEGD19pajQMIzcNUd/k9GsfQ+FfECvX+JE+e9/btsKH0EjJT6A==,
+            }
+
     remark-gfm@4.0.0:
         resolution:
             {
@@ -2708,6 +2738,15 @@ packages:
             }
         engines: { node: '>=14.0.0' }
         hasBin: true
+
+    tailwind-scrollbar@3.1.0:
+        resolution:
+            {
+                integrity: sha512-pmrtDIZeHyu2idTejfV59SbaJyvp1VRjYxAjZBH0jnyrPRo6HL1kD5Glz8VPagasqr6oAx6M05+Tuw429Z8jxg==,
+            }
+        engines: { node: '>=12.13.0' }
+        peerDependencies:
+            tailwindcss: 3.x
 
     tailwindcss@3.4.13:
         resolution:
@@ -3515,6 +3554,8 @@ snapshots:
 
     function-bind@1.1.2: {}
 
+    github-slugger@2.0.0: {}
+
     glob-parent@5.1.2:
         dependencies:
             is-glob: 4.0.3
@@ -3555,6 +3596,10 @@ snapshots:
             vfile: 6.0.3
             vfile-location: 5.0.3
             web-namespaces: 2.0.1
+
+    hast-util-heading-rank@3.0.0:
+        dependencies:
+            '@types/hast': 3.0.4
 
     hast-util-parse-selector@4.0.0:
         dependencies:
@@ -3605,6 +3650,10 @@ snapshots:
             space-separated-tokens: 2.0.2
             web-namespaces: 2.0.1
             zwitch: 2.0.4
+
+    hast-util-to-string@3.0.1:
+        dependencies:
+            '@types/hast': 3.0.4
 
     hast-util-whitespace@3.0.0:
         dependencies:
@@ -4417,6 +4466,14 @@ snapshots:
             hast-util-raw: 9.0.4
             vfile: 6.0.3
 
+    rehype-slug@6.0.0:
+        dependencies:
+            '@types/hast': 3.0.4
+            github-slugger: 2.0.0
+            hast-util-heading-rank: 3.0.0
+            hast-util-to-string: 3.0.1
+            unist-util-visit: 5.0.0
+
     remark-gfm@4.0.0:
         dependencies:
             '@types/mdast': 4.0.4
@@ -4557,6 +4614,10 @@ snapshots:
             css-what: 6.1.0
             csso: 5.0.5
             picocolors: 1.1.0
+
+    tailwind-scrollbar@3.1.0(tailwindcss@3.4.13):
+        dependencies:
+            tailwindcss: 3.4.13
 
     tailwindcss@3.4.13:
         dependencies:

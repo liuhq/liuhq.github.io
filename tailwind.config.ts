@@ -1,68 +1,29 @@
-import type { Config } from 'tailwindcss'
-import type { PluginAPI } from 'tailwindcss/types/config'
 import catppuccin from '@catppuccin/tailwindcss'
 import typography from '@tailwindcss/typography'
+import tailwindScrollbar from 'tailwind-scrollbar'
+import type { Config } from 'tailwindcss'
+import type { PluginAPI } from 'tailwindcss/types/config'
 
 const config: Config = {
   content: ['./components/**/*.{js,ts,jsx,tsx,mdx}', './app/**/*.{js,ts,jsx,tsx,mdx}'],
   darkMode: 'selector',
+  theme: {
+    fontFamily: {
+      mono: ['var(--font-jetBrains-mono)', 'ui-monospace', 'monospace'],
+    },
+    extend: {
+      fontFamily: {
+        special: ['var(--font-rampart-one)'],
+      },
+    },
+  },
   plugins: [
     catppuccin({ prefix: 'ctp' }),
     typography,
+    tailwindScrollbar({ preferredStrategy: 'pseudoelements' }),
     function ({ addVariant }: PluginAPI) {
       addVariant('prose-inline-code', '&.prose :where(:not(pre)>code):not(:where([class~="not-prose"] *))')
     },
   ],
-  corePlugins: {
-    backdropBlur: false,
-    backdropBrightness: false,
-    backdropContrast: false,
-    backdropFilter: false,
-    backdropGrayscale: false,
-    backdropHueRotate: false,
-    backdropInvert: false,
-    backdropOpacity: false,
-    backdropSaturate: false,
-    backdropSepia: false,
-    backgroundAttachment: false,
-    backgroundBlendMode: false,
-    backgroundImage: false,
-    backgroundOrigin: false,
-    backgroundPosition: false,
-    backgroundRepeat: false,
-    backgroundSize: false,
-    boxDecorationBreak: false,
-    blur: false,
-    brightness: false,
-    caretColor: false,
-    clear: false,
-    container: false,
-    contrast: false,
-    dropShadow: false,
-    filter: false,
-    float: false,
-    grayscale: false,
-    hueRotate: false,
-    invert: false,
-    isolation: false,
-    listStyleImage: false,
-    mixBlendMode: false,
-    objectFit: false,
-    objectPosition: false,
-    pointerEvents: false,
-    resize: false,
-    rotate: false,
-    saturate: false,
-    scrollMargin: false,
-    scrollPadding: false,
-    scrollSnapAlign: false,
-    scrollSnapStop: false,
-    scrollSnapType: false,
-    sepia: false,
-    skew: false,
-    textTransform: false,
-    touchAction: false,
-    willChange: false,
-  },
 }
 export default config

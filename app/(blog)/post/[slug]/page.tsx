@@ -1,13 +1,19 @@
 import { RiExternalLinkLine, RiPriceTag3Fill } from '@remixicon/react'
 import { allPosts } from 'content-collections'
 import { format, formatISO } from 'date-fns'
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import Markdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
+import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
 
 interface Params {
     slug: string
+}
+
+export const metadata: Metadata = {
+    title: '漆予的笔记 ψ(._. )>',
 }
 
 export function generateStaticParams(): Array<Params> {
@@ -55,20 +61,21 @@ export default function Page({ params }: Readonly<{ params: Params }>) {
                         className="prose max-w-none select-text text-ctp-text dark:prose-invert
                             selection:bg-ctp-lavender selection:text-ctp-crust prose-headings:text-ctp-text
                             prose-h2:text-ctp-lavender prose-h3:text-ctp-subtext0 prose-h4:text-ctp-overlay1
-                            prose-a:text-ctp-lavender prose-a:no-underline hover:prose-a:underline
-                            prose-blockquote:border-ctp-surface0 prose-blockquote:text-ctp-subtext0
-                            prose-strong:text-ctp-text prose-kbd:select-none prose-kbd:border prose-kbd:border-b-4
-                            prose-kbd:border-ctp-surface2 prose-kbd:text-ctp-subtext1 prose-kbd:shadow-none
-                            hover:prose-kbd:border-ctp-lavender hover:prose-kbd:text-ctp-lavender prose-pre:rounded
-                            prose-pre:bg-ctp-crust prose-pre:text-ctp-text prose-th:text-ctp-lavender prose-img:mx-auto
-                            prose-img:rounded prose-img:shadow-md prose-img:shadow-ctp-crust
-                            prose-hr:border-ctp-surface2 prose-inline-code:rounded prose-inline-code:bg-ctp-surface0
-                            prose-inline-code:px-2 prose-inline-code:py-1 prose-inline-code:text-ctp-subtext1
-                            prose-inline-code:before:content-[''] prose-inline-code:after:content-[''] md:prose-hr:mx-12"
+                            prose-a:text-ctp-lavender prose-a:no-underline prose-blockquote:border-ctp-surface0
+                            prose-blockquote:text-ctp-subtext0 prose-strong:text-ctp-text prose-kbd:select-none
+                            prose-kbd:border prose-kbd:border-b-4 prose-kbd:border-ctp-surface2
+                            prose-kbd:text-ctp-subtext1 prose-kbd:shadow-none prose-pre:rounded prose-pre:bg-ctp-crust
+                            prose-pre:text-ctp-text prose-th:text-ctp-lavender prose-img:mx-auto prose-img:rounded
+                            prose-img:shadow-md prose-img:shadow-ctp-crust prose-hr:border-ctp-surface2
+                            hover:prose-a:underline hover:prose-kbd:border-ctp-lavender
+                            hover:prose-kbd:text-ctp-lavender prose-inline-code:rounded
+                            prose-inline-code:bg-ctp-surface0 prose-inline-code:px-2 prose-inline-code:py-1
+                            prose-inline-code:text-ctp-subtext1 prose-inline-code:before:content-['']
+                            prose-inline-code:after:content-[''] md:prose-hr:mx-12"
                     >
                         <Markdown
                             remarkPlugins={[remarkGfm]}
-                            rehypePlugins={[rehypeRaw]}
+                            rehypePlugins={[rehypeRaw, rehypeSlug]}
                             components={{
                                 details: ({ children }) => (
                                     <details
@@ -83,21 +90,31 @@ export default function Page({ params }: Readonly<{ params: Params }>) {
                                         {children}
                                     </summary>
                                 ),
-                                a: ({ children, href }) => (
-                                    <a href={href} className="inline-flex place-items-center gap-0.5" target="_blank">
-                                        {children}
-                                        <RiExternalLinkLine className="size-[18px]" />
-                                    </a>
-                                ),
+                                a: ({ children, href }) => {
+                                    let inner = true
+                                    const pattern = /^[#/]/
+                                    if (href) inner = pattern.test(href)
+
+                                    return (
+                                        <a
+                                            href={href}
+                                            className="inline-flex place-items-center gap-0.5"
+                                            target={inner ? '_self' : '_blank'}
+                                        >
+                                            {children}
+                                            {inner || <RiExternalLinkLine className="size-[18px]" />}
+                                        </a>
+                                    )
+                                },
                             }}
                         >
                             {post.content}
                         </Markdown>
                     </article>
-                    <footer className="text-center text-xl italic text-ctp-overlay1">··· 完 ···</footer>
+                    <footer className="text-center text-xl italic text-ctp-overlay1">--- 完 ---</footer>
                 </>
             ) : (
-                <p>内容遗失在世界的角落</p>
+                <p>{`内容遗失在世界的角落 (ノへ￣、)`}</p>
             )}
         </main>
     )

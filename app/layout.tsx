@@ -1,15 +1,26 @@
-import type { Metadata } from 'next'
-import '@/styles/globals.css'
+import { allData } from '@/.content-collections/generated'
 import Footer from '@/components/footer'
+import '@/styles/globals.css'
+import { jetBrains_mono, rampart_one } from '@/utils/fonts'
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-    title: 'Blog',
-    description: 'My blog website.',
+    title: '漆予的营地 (o゜▽゜)o☆',
+    description: '漆予的营地，分享一些好玩的内容',
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+    const data = allData.find(data => data._meta.path == 'profile')!
+
+    if (!data) {
+        console.error("'profile' is not found")
+    }
+
     return (
-        <html className="dark ctp-latte dark:ctp-mocha">
+        <html
+            lang={data.site_lang}
+            className={`dark ctp-latte dark:ctp-mocha ${rampart_one.variable} ${jetBrains_mono.variable}`}
+        >
             {/*
               * only use dark mode now
                 <head>
@@ -18,7 +29,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             */}
             <body
                 className="m-auto grid min-h-screen select-none grid-rows-[1fr_auto] place-items-center gap-8
-                    overflow-x-hidden bg-ctp-base text-ctp-text md:w-[768px]"
+                    overflow-x-hidden bg-ctp-base text-ctp-text scrollbar-thin scrollbar-thumb-ctp-surface0
+                    hover:scrollbar-thumb-ctp-surface2 md:w-[768px]"
             >
                 {children}
                 <Footer />

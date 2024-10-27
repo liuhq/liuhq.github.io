@@ -1,6 +1,6 @@
 import type { Post } from '@/.content-collections/generated'
+import { getMonth } from 'date-fns'
 import sortPostsByDate from './sortPostsByDate'
-import { getMonth, getYear } from 'date-fns'
 
 export interface SplitByMonthType {
     months: Array<string>

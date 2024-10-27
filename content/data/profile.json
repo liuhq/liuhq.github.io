@@ -5,6 +5,8 @@
     "en_name": "Chiyuu"
   },
   "home_url": "https://liuhq.github.io/",
+  "site_lang": "zh-CN",
+  "header_title": "漆予 Chiyuu",
   "prefList": [
     {
       "name": "偏好语言",
@@ -15,7 +17,7 @@
       "items": ["WEB", "独立游戏", "桌面应用"]
     }
   ],
-  "pin": [
+  "repo": [
     {
       "owner": "liuhq",
       "repo": "liuhq.github.io"

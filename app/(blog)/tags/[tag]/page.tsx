@@ -2,9 +2,14 @@ import { allPosts, type Post } from '@/.content-collections/generated'
 import PostList from '@/components/postList'
 import splitByTag from '@/utils/splitByTag'
 import { RiPriceTag3Line } from '@remixicon/react'
+import type { Metadata } from 'next'
 
 interface Params {
     tag: string
+}
+
+export const metadata: Metadata = {
+    title: '标签 | 漆予的笔记',
 }
 
 export function generateStaticParams(): Array<Params> {
@@ -25,9 +30,7 @@ export default function Page({ params }: Readonly<{ params: Params }>) {
                 <RiPriceTag3Line className="mt-0.5 size-8 shrink-0" />
                 <h2 className="text-4xl font-bold italic">标签：{decodeURIComponent(params.tag)}</h2>
             </header>
-            <div className="space-y-8">
-                <PostList posts={tags[decodeURIComponent(params.tag)] as Array<Post>} />
-            </div>
+            <PostList posts={tags[decodeURIComponent(params.tag)] as Array<Post>} />
         </main>
     )
 }

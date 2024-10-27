@@ -8,6 +8,7 @@ const posts = defineCollection({
         title: z.string(),
         date: z.string().date(),
         tags: z.array(z.string()).default(['其他']),
+        pin: z.boolean().default(false),
     }),
 })
 
@@ -23,21 +24,20 @@ const data = defineCollection({
             en_name: z.string(),
         }),
         home_url: z.string(),
+        site_lang: z.string(),
+        header_title: z.string(),
         prefList: z.array(
             z.object({
                 name: z.string(),
                 items: z.array(z.string()),
             })
         ),
-        pin: z
-            .array(
-                z.object({
-                    owner: z.string(),
-                    repo: z.string(),
-                })
-            )
-            .min(0)
-            .max(4),
+        repo: z.array(
+            z.object({
+                owner: z.string(),
+                repo: z.string(),
+            })
+        ),
         notfound_words: z.array(z.string()),
     }),
 })

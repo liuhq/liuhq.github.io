@@ -1,7 +1,6 @@
 import { allData } from '@/.content-collections/generated'
 import { RiCopyrightLine } from '@remixicon/react'
 import { constructNow, getYear } from 'date-fns'
-import { headers } from 'next/headers'
 
 export default function Footer() {
     const profile = allData.find(data => data._meta.path == 'profile')!
