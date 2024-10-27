@@ -6,7 +6,7 @@ import { getYear } from 'date-fns'
 import ListBoard from './listBoard'
 import PostList from './postList'
 
-export default async function PostBoard() {
+export default function PostBoard() {
     const pined = getPinedPosts(allPosts)
     const latest = getLatestPosts(allPosts)
 
