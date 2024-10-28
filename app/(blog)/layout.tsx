@@ -17,8 +17,11 @@ export default function BlogLayout({ children }: Readonly<{ children: React.Reac
     }
 
     return (
-        <div className="grid grid-rows-[auto_1fr] self-start justify-self-stretch px-4 md:w-[768px] md:px-0">
-            <header className="mb-12 mt-6 flex flex-col place-items-center gap-4 md:mt-12 md:flex-row md:justify-between">
+        <>
+            <header
+                className="mb-12 mt-6 flex flex-col place-items-center gap-4 justify-self-stretch md:mt-12 md:flex-row
+                    md:justify-between"
+            >
                 <h1 className="justify-self-start font-special text-xl text-ctp-lavender">{data.header_title}</h1>
                 <nav className="flex h-12 place-items-center gap-6 pr-1">
                     <NavLink href="/">主页</NavLink>
@@ -33,7 +36,7 @@ export default function BlogLayout({ children }: Readonly<{ children: React.Reac
                     </NavLink>
                 </nav>
             </header>
-            {children}
-        </div>
+            <main className="space-y-8 place-self-stretch px-4 md:px-0">{children}</main>
+        </>
     )
 }

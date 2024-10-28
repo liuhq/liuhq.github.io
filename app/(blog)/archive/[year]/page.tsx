@@ -25,10 +25,10 @@ export default function Page({ params }: Readonly<{ params: Params }>) {
     const postsByMonth = splitByMonth(postsByYear[params.year] as Array<Post>)
 
     return (
-        <main className="space-y-8">
+        <>
             <YearsTab years={postsByYear.years} active={params.year} />
             <MonthList posts={postsByMonth} />
-        </main>
+        </>
     )
 }
 

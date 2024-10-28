@@ -12,7 +12,7 @@ export default function Page() {
     const postsByTag = splitByTag(allPosts)
 
     return (
-        <main className="space-y-8">
+        <>
             <header className="flex place-items-center gap-4 text-ctp-lavender opacity-90">
                 <RiPriceTag3Line className="mt-0.5 size-8 shrink-0" />
                 <h2 className="text-4xl font-bold italic">{postsByTag.tags.length} 个标签</h2>
@@ -29,6 +29,6 @@ export default function Page() {
                     </Tag>
                 ))}
             </ul>
-        </main>
+        </>
     )
 }

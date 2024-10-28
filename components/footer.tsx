@@ -10,7 +10,9 @@ export default function Footer() {
     }
 
     return (
-        <footer className="h-14 text-sm text-ctp-subtext0 md:flex md:place-items-center md:gap-2">
+        <footer
+            className="row-span-1 row-start-3 mt-8 h-14 text-sm text-ctp-subtext0 md:flex md:place-items-center md:gap-2"
+        >
             <p className="flex place-content-center place-items-center">
                 <RiCopyrightLine className="inline-block size-4" />
                 &nbsp;

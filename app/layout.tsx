@@ -28,7 +28,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 </head>
             */}
             <body
-                className="m-auto grid min-h-screen select-none grid-rows-[1fr_auto] place-items-center gap-8
+                className="m-auto grid min-h-screen select-none grid-rows-[auto_1fr_auto] place-items-center
                     overflow-x-hidden bg-ctp-base text-ctp-text scrollbar-thin scrollbar-thumb-ctp-surface0
                     hover:scrollbar-thumb-ctp-surface2 md:w-[768px]"
             >

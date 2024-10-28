@@ -25,12 +25,12 @@ export default function Page({ params }: Readonly<{ params: Params }>) {
     const tags = splitByTag(allPosts)
 
     return (
-        <main className="space-y-8">
+        <>
             <header className="flex place-items-center gap-4 text-ctp-lavender opacity-90">
                 <RiPriceTag3Line className="mt-0.5 size-8 shrink-0" />
                 <h2 className="text-4xl font-bold italic">标签：{decodeURIComponent(params.tag)}</h2>
             </header>
             <PostList posts={tags[decodeURIComponent(params.tag)] as Array<Post>} />
-        </main>
+        </>
     )
 }
