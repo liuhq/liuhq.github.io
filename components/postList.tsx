@@ -4,8 +4,8 @@ import Link from 'next/link'
 export default function PostList({ posts }: Readonly<{ posts: Array<Post> }>) {
     return (
         <ul className="space-y-4 md:space-y-1">
-            {posts.map((post, i) => (
-                <li key={i} className="flex place-content-between gap-1">
+            {posts.map(post => (
+                <li key={post.uuid} className="flex place-content-between gap-1">
                     <Link
                         href={`/post/${post._meta.path}`}
                         className="group relative flex place-items-center hover:text-ctp-lavender"

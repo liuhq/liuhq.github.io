@@ -36,7 +36,7 @@ export default function BlogLayout({ children }: Readonly<{ children: React.Reac
                     </NavLink>
                 </nav>
             </header>
-            <main className="space-y-8 place-self-stretch px-4 md:px-0">{children}</main>
+            <main className="max-w-[100vw] space-y-8 place-self-stretch px-4 md:max-w-[768px] md:px-0">{children}</main>
         </>
     )
 }
