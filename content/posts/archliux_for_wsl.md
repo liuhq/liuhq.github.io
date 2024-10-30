@@ -44,90 +44,103 @@ sudo tar -xf archlinux-bootstrap-x86_64.tar.zst --numeric-owner
 
 ### 初始化环境
 
-enter the chroot
-
-> Maybe will get `error: could not determine cachedir mount point /var/cache/pacman/pkg` when try to install packages with pacman.
-> To workaround it, run `mount --bind directory-to-livecd-or-bootstrap directory-to-livecd-or-bootstrap` **before chrooting**
->
-> such as here
->
-> ```bash
-> sudo mount --bind root.x86_64 root.x86_64
-> ```
+进入 arch-chroot
 
 ```bash
 # in ~
 sudo ./root.x86_64/bin/arch-chroot root.x86_64
 ```
 
-edit `root.x86_64/etc/pacman.d/mirrorlist` to select the mirrors
+> 当尝试 pacman 安装程序时，可能会出现错误 `error: could not determine cachedir mount point /var/cache/pacman/pkg`
+> 因此，**arch-chroot 前**可以先 `mount` 一下 `mount --bind directory-to-livecd-or-bootstrap directory-to-livecd-or-bootstrap`
+>
+> 例如
+>
+> ```bash
+> sudo mount --bind root.x86_64 root.x86_64
+> ```
+
+编辑 `root.x86_64/etc/pacman.d/mirrorlist` 选择合适的 mirrors，我这里选择 tuna 和 ustc 的 https 镜像源。
 
 ```bash
-# only keep tuna and ustc sources
 sed -i '/http:/d; /tuna/!{/ustc/!d}; s/^#//' /etc/pacman.d/mirrorlist
 ```
 
-1. initializing pacman keyring & downloading basic tools
+#### 初始化 keyring 和下载基础软件包
 
 ```bash
-pacman-key --init && pacman-key --populate && pacman -Syy && pacman -S archlinux-keyring --noconfirm
-
+pacman-key --init && pacman-key --populate &&  pacman -Syy archlinux-keyring --noconfirm
 pacman -Syu
-pacman -S base base-devel #...
+pacman -S base base-devel #你需要的软件
 ```
 
-2. then follow ArchWiki guide: https://wiki.archlinux.org/title/Installation_guide#Chroot
+#### 跟随 archlinux wiki 如同真实装机那样
+
+[Archlinux Wiki guide](https://wiki.archlinux.org/title/Installation_guide#Chroot)
+
+设置时区、语言等
 
 ```bash
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && hwclock --systohc
 echo "LANG=en_GB.UTF-8" > /etc/locale.conf && sed -i '/^#\(en_GB\.UTF-8\|en_US\.UTF-8\|zh_CN\.UTF-8\)/s/^#//' /etc/locale.gen && locale-gen
+```
 
-# set locale with wsl. see: https://github.com/yuk7/ArchWSL/issues/76
+这里需要额外链接 locale.conf 覆盖 wsl 的默认 locale，详见：[https://github.com/yuk7/ArchWSL/issues/76](https://github.com/yuk7/ArchWSL/issues/76)
+
+``` bash
 ln -sf /etc/locale.conf /etc/default/locale
 ```
 
-3. add a normal user
+创建普通用户
 
 ```bash
 useradd -m -G wheel <user_name>
 ```
 
-edit `/etc/sudoers` to uncomment the line `%wheel  ALL=(ALL:ALL)  ALL` for granting the privileges to this user. or
+编辑 `/etc/sudoers` 取消 `%wheel  ALL=(ALL:ALL)  ALL` 行的注释，提升普通用户 `sudo` 权限，或者也可以如下设置：
 
 ```bash
 echo "%wheel  ALL=(ALL:ALL)  ALL" > /etc/sudoers.d/wheel
 ```
 
-edit `/etc/wsl.conf`
+> sudoers 会自动读取 `sudoers.d/*` 下的文件来覆盖自己的内容。
+
+最后配置 `/etc/wsl.conf`，例如我所使用的配置：
 
 ```bash
-echo -e "[boot]\nsystemd = true\n\n[interop]\nappendWindowsPath = false\n\n[network]\nhostname = HORA-WSL-ARCH\n\n[user]\ndefault = horace" > /etc/wsl.conf
-# for clean
-sed -i 's/^\[u/#\[u/; s/^def/#def/' /etc/wsl.conf
+echo -e "[boot]\nsystemd = true\n\n[interop]\nappendWindowsPath = false\n\n[network]\nhostname = <your-flavour-name>-WSL-ARCH\n\n[user]\ndefault = <user_name>" > /etc/wsl.conf
 ```
 
-### package and install
+### 重新打包（就是这么的简单粗暴）
 
-re-package this folder
+使用 badtar 或者 tar（取决于你用什么解包）重新打包 archlinux 环境。
 
 ```bash
-# in ~
-# recommanded use bsdtar
+# 推荐使用 bsdtar
 sudo bsdtar -cpf archlinux-bootstrap.tar -C root.x86_64 .
-# or use tar
+# 或者使用 tar
 sudo tar -cf archlinux-bootstrap.tar -C root.x86_64 .
+```
 
+最后将镜像包移出 WSL 实例（前提：你需要挂载 Windows 分区，默认配置已经自动挂载）
+
+```bash
 mv archlinux-bootstrap.tar /mnt/<path-to-windows>
 ```
 
-install the distro
+安装镜像包
 
 ```powershell
-wsl --import Archlinux <path-to-install-folder> <path-to-tar>/archlinux-bootstrap.tar
-wsl -l -v # check installed
+wsl --import <自定义 disto 名，这里 ArchWSL> <期望的 WSL 实例路径> <镜像包路径>/archlinux-bootstrap.tar
 ```
 
-## Install Archlinux for WSL | use pacstrap
+检查安装成功与否
+
+```powershell
+wsl -l -v
+```
+
+## 通过 pacstrap 制作镜像包
 
 login in **`root`**, then start initializing rootfs (path -> `/mnt/rootfs`)
 
@@ -187,7 +200,7 @@ arch-chroot /mnt/rootfs bash -c 'pacman-key --lsign-key "farseerfc@archlinux.org
 arch-chroot /mnt/rootfs bash -c 'pacman -Syy archlinuxcn-keyring --noconfirm'
 ```
 
-## WSLg Configure
+## 配置 WSLg
 
 ### wayland
 
@@ -233,55 +246,3 @@ then enable service
 ```bash
 systemctl enable wsl-x11-socket
 ```
-
-## Compile Latest Kernel for WSL
-
-Download latest kernel from `https://www.kernel.org/`
-
-```bash
-cd ~
-wget https://cdn.kernel.org/pub/linux/kernel/<version>/linux-<version>.tar.xz
-tar -xf linux-<version>.tar.xz
-cd linux-<version>
-```
-
-get kernel build config for WSL
-
-```bash
-# in ~/linux-<version>
-mkdir Microsoft
-wget -O Microsoft/config-wsl https://raw.githubusercontent.com/microsoft/WSL2-Linux-Kernel/refs/heads/linux-msft-wsl-6.6.y/arch/x86/configs/config-wsl
-```
-
-custom version tag:
-
-- `Makefile` : change `EXTRAVERSION`
-- `Microsoft/config-wsl` : change `CONFIG_LOCALVERSION`
-
-will be displayed as `<kernel-version>[EXTRAVERSION][CONFIG_LOCALVERSION]`
-
-install the dependencies: `build-essential flex bison dwarves libssl-dev libelf-dev cpio bc python3`
-
-begin compile kernel, run
-
-```bash
-# in ~/linux-<version>
-make -j12 KCONFIG_CONFIG=Microsoft/config-wsl # j12 is j<number> equal to CPU logical processors
-
-# OR: custom kernel in tui
-make -j12 menuconfig KCONFIG_CONFIG=Microsoft/config-wsl
-
-# compilation successful:
-Kernel: arch/x86/boot/bzImage is ready
-```
-
-then move (or copy) `~/linux-<version>/arch/x86/boot/bzImage` to `/mnt/c/<path-to-windows-where-want-to-place>/wsl-kernel`
-
-edit `~/.wslconfig`
-
-```ini
-[wsl2]
-kernel=C:\\<path-to-kernel>\\wsl-kernel
-```
-
-finally, restart wsl and check `uname -r`
