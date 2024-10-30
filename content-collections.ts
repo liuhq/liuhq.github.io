@@ -9,6 +9,7 @@ const posts = defineCollection({
         date: z.string().date(),
         tags: z.array(z.string()).default(['其他']),
         pin: z.boolean().default(false),
+        uuid: z.string().uuid(),
     }),
 })
 

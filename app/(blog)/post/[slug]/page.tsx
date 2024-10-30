@@ -14,17 +14,11 @@ export const metadata: Metadata = {
 }
 
 export function generateStaticParams(): Array<Params> {
-    return allPosts.map(v => ({
-        /* fix(nextjs problem when `output: export`):
-            in dev, nextjs can't encode uri
-            but in build, nextjs will encode uri automatically
-        */
-        slug: process.env.NODE_ENV == 'development' ? encodeURIComponent(v._meta.path) : v._meta.path,
-    }))
+    return allPosts.map(post => ({ slug: post.uuid }))
 }
 
 export default function Page({ params }: Readonly<{ params: Params }>) {
-    const post = allPosts.find(post => post._meta.path == decodeURIComponent(params.slug))
+    const post = allPosts.find(post => post.uuid == params.slug)
 
     return post ? (
         <>
