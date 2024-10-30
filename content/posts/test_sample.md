@@ -1,9 +1,9 @@
 ---
-title: 'Markdown 样式测试'
+title: Markdown 样式测试
 date: 2023-03-21
 tags:
   - markdown
-  - test
+uuid: 019ae583-927b-4523-9de2-937c5bb654f7
 ---
 
 以下是一篇包含多种 Markdown 样式的测试文稿，涵盖了标题、列表、引用、代码块、表格、图片和链接等常见格式。
