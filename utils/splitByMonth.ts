@@ -1,18 +1,16 @@
 import type { Post } from '@/.content-collections/generated'
 import { getMonth } from 'date-fns'
-import sortPostsByDate from './sortPostsByDate'
 
 export interface SplitByMonthType {
     months: Array<string>
     [month: string]: Array<Post | string>
 }
 
-export default function splitByMonth(allPosts: ReadonlyArray<Post>): SplitByMonthType {
+export default function splitByMonth(posts: ReadonlyArray<Post>): SplitByMonthType {
     const ret: SplitByMonthType = {
         months: [],
     }
-    const sorted = sortPostsByDate(allPosts, true)
-    sorted.map(post => {
+    posts.map(post => {
         const month = (getMonth(post.date) + 1).toString()
         // push year
         !ret.months.includes(month) && ret.months.push(month)

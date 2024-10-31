@@ -1,7 +1,10 @@
 import type { Post } from '@/.content-collections/generated'
 import Link from 'next/link'
 
-export default function PostList({ posts }: Readonly<{ posts: Array<Post> }>) {
+export default function PostList({
+    posts,
+    sortByUpdate = false,
+}: Readonly<{ posts: Array<Post>; sortByUpdate?: boolean }>) {
     return (
         <ul className="space-y-4 md:space-y-1">
             {posts.map(post => (
@@ -17,7 +20,9 @@ export default function PostList({ posts }: Readonly<{ posts: Array<Post> }>) {
                         ></span>
                         {post.title}
                     </Link>
-                    <span className="shrink-0 italic text-ctp-subtext0">{post.date}</span>
+                    <span className="shrink-0 italic text-ctp-subtext0">
+                        {sortByUpdate ? post.update || post.date : post.date}
+                    </span>
                 </li>
             ))}
         </ul>

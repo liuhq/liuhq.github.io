@@ -30,7 +30,7 @@ const PostPined = ({ posts }: Readonly<{ posts: Array<Post> }>) => (
         {posts.length == 0 ? (
             <p className="pt-4 text-center text-sm italic text-ctp-overlay1">暂无置顶哦~~~</p>
         ) : (
-            <PostList posts={posts} />
+            <PostList posts={posts} sortByUpdate />
         )}
     </ListBoard>
 )
@@ -48,6 +48,6 @@ const PostLatest = ({ posts }: Readonly<{ posts: Array<Post> }>) => (
             url: `/archive/${getYear(posts[0].date)}`,
         }}
     >
-        <PostList posts={posts} />
+        <PostList posts={posts} sortByUpdate />
     </ListBoard>
 )

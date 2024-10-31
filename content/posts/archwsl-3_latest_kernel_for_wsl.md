@@ -1,6 +1,7 @@
 ---
-title: 为 WSL 编译最新内核（手稿翻译中……）
-date: 2024-10-30
+title: 'ArchWSL #3 - 为 WSL 编译最新内核（手稿翻译中……）'
+date: 2024-09-02
+update: 2024-10-31
 tags:
   - WSL
 pin: false

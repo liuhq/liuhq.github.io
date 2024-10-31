@@ -1,5 +1,6 @@
 import { allPosts, type Post } from '@/.content-collections/generated'
 import PostList from '@/components/postList'
+import sortPostsByDate from '@/utils/sortPostsByDate'
 import splitByTag from '@/utils/splitByTag'
 import { RiPriceTag3Line } from '@remixicon/react'
 import type { Metadata } from 'next'
@@ -22,7 +23,7 @@ export function generateStaticParams(): Array<Params> {
 }
 
 export default function Page({ params }: Readonly<{ params: Params }>) {
-    const tags = splitByTag(allPosts)
+    const tags = splitByTag(sortPostsByDate(allPosts, { update: true }))
 
     return (
         <>
@@ -30,7 +31,7 @@ export default function Page({ params }: Readonly<{ params: Params }>) {
                 <RiPriceTag3Line className="mt-0.5 size-8 shrink-0" />
                 <h2 className="text-4xl font-bold italic">标签：{decodeURIComponent(params.tag)}</h2>
             </header>
-            <PostList posts={tags[decodeURIComponent(params.tag)] as Array<Post>} />
+            <PostList posts={tags[decodeURIComponent(params.tag)] as Array<Post>} sortByUpdate />
         </>
     )
 }

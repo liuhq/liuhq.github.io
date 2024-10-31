@@ -7,6 +7,7 @@ const posts = defineCollection({
     schema: z => ({
         title: z.string(),
         date: z.string().date(),
+        update: z.string().date().optional(),
         tags: z.array(z.string()).default(['其他']),
         pin: z.boolean().default(false),
         uuid: z.string().uuid(),
@@ -49,7 +50,7 @@ const aboutme = defineCollection({
     include: ['**/*.md'],
     schema: z => ({
         title: z.string(),
-        date: z.string().date(),
+        update: z.string().date(),
     }),
 })
 

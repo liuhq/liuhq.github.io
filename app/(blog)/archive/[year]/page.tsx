@@ -1,6 +1,7 @@
 import { allPosts, type Post } from '@/.content-collections/generated'
 import PostList from '@/components/postList'
 import Tag from '@/components/tag'
+import sortPostsByDate from '@/utils/sortPostsByDate'
 import type { SplitByMonthType } from '@/utils/splitByMonth'
 import splitByMonth from '@/utils/splitByMonth'
 import splitByYear from '@/utils/splitByYear'
@@ -16,13 +17,13 @@ export const metadata: Metadata = {
 }
 
 export function generateStaticParams(): Array<Params> {
-    const years = splitByYear(allPosts).years
+    const years = splitByYear(sortPostsByDate(allPosts)).years
     return years.map(year => ({ year: year.toString() }))
 }
 
 export default function Page({ params }: Readonly<{ params: Params }>) {
-    const postsByYear = splitByYear(allPosts)
-    const postsByMonth = splitByMonth(postsByYear[params.year] as Array<Post>)
+    const postsByYear = splitByYear(sortPostsByDate(allPosts))
+    const postsByMonth = splitByMonth(sortPostsByDate(postsByYear[params.year] as Array<Post>, { asc: true }))
 
     return (
         <>

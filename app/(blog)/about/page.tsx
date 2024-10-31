@@ -16,7 +16,7 @@ export default function Page() {
                 <p>---</p>
                 <p className="text-sm text-ctp-subtext0">
                     更新日期：
-                    <time dateTime={formatISO(aboutme.date)}>{format(aboutme.date, 'yyyy 年 M 月 d 日')}</time>
+                    <time dateTime={formatISO(aboutme.update)}>{format(aboutme.update, 'yyyy 年 M 月 d 日')}</time>
                 </p>
             </header>
             <PostRender>{aboutme.content}</PostRender>

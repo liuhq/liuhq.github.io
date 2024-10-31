@@ -1,6 +1,7 @@
 ---
-title: 构建 Archlinux WSL 镜像包（手稿翻译中……）
-date: 2024-10-30
+title: 'ArchWSL #1 - 构建 Archlinux WSL 镜像包（手稿翻译中……）'
+date: 2024-08-16
+update: 2024-10-31
 tags:
   - WSL
 pin: true
@@ -36,7 +37,7 @@ wget https://<path-to-archlinux-bootstrap-x86_64.tar.zst>
 sudo bsdtar -xpf archlinux-bootstrap-x86_64.tar.zst
 ```
 
-或者也可以使用自带的 tar，不过得加上参数 `--numeric-owner`，它会保留合适的 UID 和 GID，参考链接：[Install Arch Linux from existing Linux](https://wiki.archlinux.org/title/Install_Arch_Linux_from_existing_Linux#Method_A:_Using_the_bootstrap_tarball_(recommended))
+或者也可以使用自带的 tar，不过得加上参数 `--numeric-owner`，它会保留合适的 UID 和 GID，参考链接：[Install Arch Linux from existing Linux](<https://wiki.archlinux.org/title/Install_Arch_Linux_from_existing_Linux#Method_A:_Using_the_bootstrap_tarball_(recommended)>)
 
 ```bash
 sudo tar -xf archlinux-bootstrap-x86_64.tar.zst --numeric-owner
@@ -87,7 +88,7 @@ echo "LANG=en_GB.UTF-8" > /etc/locale.conf && sed -i '/^#\(en_GB\.UTF-8\|en_US\.
 
 这里需要额外链接 locale.conf 覆盖 wsl 的默认 locale，详见：[https://github.com/yuk7/ArchWSL/issues/76](https://github.com/yuk7/ArchWSL/issues/76)
 
-``` bash
+```bash
 ln -sf /etc/locale.conf /etc/default/locale
 ```
 
@@ -198,51 +199,4 @@ sed -i "/^#\[multilib\]/s/^#//; /^\[multilib\]/{n;s/^#//}" /mnt/rootfs/etc/pacma
 echo -e "\n[archlinuxcn]\nServer = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch" >> /mnt/rootfs/etc/pacman.conf
 arch-chroot /mnt/rootfs bash -c 'pacman-key --lsign-key "farseerfc@archlinux.org"'
 arch-chroot /mnt/rootfs bash -c 'pacman -Syy archlinuxcn-keyring --noconfirm'
-```
-
-## 配置 WSLg
-
-### wayland
-
-put `wsl-wayland-socket.service` on `/etc/systemd/user/`
-
-```ini
-[Unit]
-Description=Symlink WSLg wayland socket(user) to XDG runtime dir
-
-[Service]
-Type=oneshot
-ExecStart=ln -sf /mnt/wslg/runtime-dir/wayland-0      $XDG_RUNTIME_DIR
-ExecStart=ln -sf /mnt/wslg/runtime-dir/wayland-0.lock $XDG_RUNTIME_DIR
-
-[Install]
-WantedBy=default.target
-```
-
-then enable service
-
-```bash
-systemctl --user enable wsl-wayland-socket
-```
-
-### X11
-
-put `wsl-x11-socket.service` on `/etc/systemd/system/`
-
-```ini
-[Unit]
-Description=Bind WSLg X11 socket to /tmp
-
-[Service]
-Type=oneshot
-ExecStart=mount -o bind,ro,X-mount.mkdir -t none /mnt/wslg/.X11-unix /tmp/.X11-unix
-
-[Install]
-WantedBy=default.target
-```
-
-then enable service
-
-```bash
-systemctl enable wsl-x11-socket
 ```

@@ -25,10 +25,23 @@ export default function Page({ params }: Readonly<{ params: Params }>) {
             <header className="rounded-md bg-ctp-surface0 p-4 text-ctp-subtext1 shadow-md shadow-ctp-crust">
                 <p className="text-lg font-bold">{post.title}</p>
                 <p>---</p>
-                <p className="text-sm text-ctp-subtext0">
-                    更新日期：
-                    <time dateTime={formatISO(post.date)}>{format(post.date, 'yyyy 年 M 月 d 日')}</time>
-                </p>
+                <div className="flex flex-col gap-0.5 md:flex-row md:gap-4">
+                    <p className="text-sm text-ctp-subtext0">
+                        发布日期：
+                        <time dateTime={formatISO(post.date)}>{format(post.date, 'yyyy 年 M 月 d 日')}</time>
+                    </p>
+                    {post.update && (
+                        <>
+                            <p className="hidden h-3 self-center border-l-2 border-ctp-surface1 md:block"></p>
+                            <p className="text-sm text-ctp-subtext0">
+                                更新日期：
+                                <time dateTime={formatISO(post.update)}>
+                                    {format(post.update, 'yyyy 年 M 月 d 日')}
+                                </time>
+                            </p>
+                        </>
+                    )}
+                </div>
                 <div className="mt-2 flex place-items-center gap-2 text-sm">
                     <RiPriceTag3Fill className="size-4 text-ctp-lavender" />
                     <ul className="flex gap-2">
