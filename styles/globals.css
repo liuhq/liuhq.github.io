@@ -3,6 +3,17 @@
 @tailwind utilities;
 
 /* markdown render hack*/
+.prose > h1:first-child,
+.prose > h2:first-child,
+.prose > h3:first-child,
+.prose > h4:first-child,
+.prose hr + h1,
+.prose hr + h2,
+.prose hr + h3,
+.prose hr + h4 {
+    margin-top: 0;
+}
+
 .prose blockquote p {
     margin: 0;
 }

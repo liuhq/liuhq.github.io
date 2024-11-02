@@ -13,7 +13,7 @@ export default function Page() {
         <>
             <header className="rounded-md bg-ctp-surface0 p-4 text-ctp-subtext1 shadow-md shadow-ctp-crust">
                 <p className="text-lg font-bold">{aboutme.title}</p>
-                <p>---</p>
+                <p className="mb-4 w-8 border-b border-ctp-surface2 pt-4"></p>
                 <p className="text-sm text-ctp-subtext0">
                     更新日期：
                     <time dateTime={formatISO(aboutme.update)}>{format(aboutme.update, 'yyyy 年 M 月 d 日')}</time>
