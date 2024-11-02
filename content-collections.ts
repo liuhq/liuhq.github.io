@@ -11,6 +11,7 @@ const posts = defineCollection({
         tags: z.array(z.string()).default(['其他']),
         pin: z.boolean().default(false),
         uuid: z.string().uuid(),
+        related: z.array(z.string().uuid()).optional(),
     }),
 })
 

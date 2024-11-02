@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* markdown render hack*/
+.prose blockquote p {
+    margin: 0;
+}
+
+.prose blockquote p:not(:last-of-type) {
+    margin-bottom: 1.25em;
+}
+
+.prose :where(blockquote):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+    padding: 1em 0;
+    padding-inline-start: 1em;
+    quotes: none;
+}

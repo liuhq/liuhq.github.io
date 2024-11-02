@@ -24,7 +24,7 @@ export default function Page({ params }: Readonly<{ params: Params }>) {
         <>
             <header className="rounded-md bg-ctp-surface0 p-4 text-ctp-subtext1 shadow-md shadow-ctp-crust">
                 <p className="text-lg font-bold">{post.title}</p>
-                <p>---</p>
+                <p className="mb-4 w-8 border-b border-ctp-surface2 pt-4"></p>
                 <div className="flex flex-col gap-0.5 md:flex-row md:gap-4">
                     <p className="text-sm text-ctp-subtext0">
                         发布日期：
@@ -42,7 +42,24 @@ export default function Page({ params }: Readonly<{ params: Params }>) {
                         </>
                     )}
                 </div>
-                <div className="mt-2 flex place-items-center gap-2 text-sm">
+                {post.related && (
+                    <details className="ml-0.5 mt-4 text-sm text-ctp-subtext0">
+                        <summary>关联笔记</summary>
+                        <ul className="ml-1 mt-2 space-y-1 border-l border-ctp-surface2 px-3">
+                            {post.related.map(uuid => (
+                                <li key={uuid}>
+                                    <Link
+                                        href={{ pathname: `/post/${uuid}` }}
+                                        className="hover:text-ctp-lavender hover:underline"
+                                    >
+                                        {allPosts.find(post => post.uuid == uuid)?.title}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </details>
+                )}
+                <div className="mt-4 flex place-items-center gap-2 text-sm">
                     <RiPriceTag3Fill className="size-4 text-ctp-lavender" />
                     <ul className="flex gap-2">
                         {post.tags.map((tag, i) => (
