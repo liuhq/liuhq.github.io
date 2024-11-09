@@ -13,6 +13,13 @@ const posts = defineCollection({
         uuid: z.string().uuid(),
         related: z.array(z.string().uuid()).optional(),
     }),
+    onSuccess: docs => {
+        console.log(`\n--- generated posts: ${docs.length} ---`)
+        for (const doc of docs) {
+            console.log(`    + ${doc._meta.filePath}`)
+        }
+        console.log('')
+    },
 })
 
 const data = defineCollection({
@@ -43,6 +50,13 @@ const data = defineCollection({
         ),
         notfound_words: z.array(z.string()),
     }),
+    onSuccess: docs => {
+        console.log(`--- generated data: ${docs.length} ---`)
+        for (const doc of docs) {
+            console.log(`    + ${doc._meta.filePath}`)
+        }
+        console.log('')
+    },
 })
 
 const aboutme = defineCollection({
@@ -53,6 +67,13 @@ const aboutme = defineCollection({
         title: z.string(),
         update: z.string().date(),
     }),
+    onSuccess: docs => {
+        console.log(`--- generated aboutme: ${docs.length} ---`)
+        for (const doc of docs) {
+            console.log(`    + ${doc._meta.filePath}`)
+        }
+        console.log('')
+    },
 })
 
 export default defineConfig({

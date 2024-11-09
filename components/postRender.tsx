@@ -8,7 +8,8 @@ import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
 
 export default function PostRender({ children }: Readonly<{ children: string }>) {
-    const [markdown, setMarkdown] = useRemark({
+    const markdown = useRemark({
+        source: children,
         remarkPlugins: [remarkGfm],
         rehypePlugins: [
             rehypeRaw,
@@ -58,10 +59,6 @@ export default function PostRender({ children }: Readonly<{ children: string }>)
             },
         },
     })
-
-    if (markdown == null) {
-        setMarkdown(children)
-    }
 
     return (
         <article

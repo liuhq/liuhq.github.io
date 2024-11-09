@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useMemo } from 'react'
 import * as jsxRuntime from 'react/jsx-runtime'
 import rehypeReact, { type Options as RehypeReactOptions } from 'rehype-react'
 import remarkParse, { type Options as RemarkParseOptions } from 'remark-parse'
@@ -6,26 +6,26 @@ import remarkRehype, { type Options as RemarkRehypeOptions } from 'remark-rehype
 import { unified, type PluggableList } from 'unified'
 
 export interface UseRemarkOptions {
+    source: string
     remarkParseOptions?: RemarkParseOptions
     remarkPlugins?: PluggableList
     remarkRehypeOptions?: RemarkRehypeOptions
     rehypePlugins?: PluggableList
     rehypeReactOptions?: Pick<RehypeReactOptions, 'components'>
-    onError?: (err: Error) => void
 }
 
-export default function useRemark({
-    remarkParseOptions,
-    remarkPlugins = [],
-    remarkRehypeOptions,
-    rehypePlugins = [],
-    rehypeReactOptions,
-    onError = () => {},
-}: UseRemarkOptions = {}): [React.ReactElement | null, (source: string) => void] {
-    const [content, setContent] = useState<React.ReactElement | null>(null)
-
-    const setMarkdown = useCallback((source: string) => {
-        unified()
+export default function useRemark(
+    {
+        source,
+        remarkParseOptions,
+        remarkPlugins = [],
+        remarkRehypeOptions,
+        rehypePlugins = [],
+        rehypeReactOptions,
+    }: UseRemarkOptions = { source: '' }
+): Promise<React.ReactElement> {
+    const content = useMemo(async () => {
+        const processor = await unified()
             // parse markdown to mdast
             .use(remarkParse, remarkParseOptions)
             .use(remarkPlugins)
@@ -40,10 +40,9 @@ export default function useRemark({
                 jsxs: jsxRuntime.jsxs,
             } satisfies RehypeReactOptions)
             .process(source)
-            // get react elements
-            .then(vfile => setContent(vfile.result))
-            .catch(onError)
-    }, [])
+        // get react elements
+        return processor.result
+    }, [source])
 
-    return [content, setMarkdown]
+    return content
 }
