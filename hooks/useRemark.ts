@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import * as jsxRuntime from 'react/jsx-runtime'
 import rehypeReact, { type Options as RehypeReactOptions } from 'rehype-react'
 import remarkParse, { type Options as RemarkParseOptions } from 'remark-parse'
@@ -23,9 +23,11 @@ export default function useRemark(
         rehypePlugins = [],
         rehypeReactOptions,
     }: UseRemarkOptions = { source: '' }
-): Promise<React.ReactElement> {
-    const content = useMemo(async () => {
-        const processor = await unified()
+): React.ReactElement | null {
+    const [content, setContent] = useState<React.ReactElement | null>(null)
+
+    useEffect(() => {
+        unified()
             // parse markdown to mdast
             .use(remarkParse, remarkParseOptions)
             .use(remarkPlugins)
@@ -40,8 +42,8 @@ export default function useRemark(
                 jsxs: jsxRuntime.jsxs,
             } satisfies RehypeReactOptions)
             .process(source)
-        // get react elements
-        return processor.result
+            .then(vf => setContent(vf.result))
+            .catch(err => console.error(err))
     }, [source])
 
     return content

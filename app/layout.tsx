@@ -30,7 +30,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <body
                 className="m-auto grid min-h-screen select-none grid-rows-[auto_1fr_auto] place-items-center
                     overflow-x-hidden bg-ctp-base text-ctp-text scrollbar-thin scrollbar-thumb-ctp-surface0
-                    hover:scrollbar-thumb-ctp-surface2 md:w-[768px]"
+                    hover:scrollbar-thumb-ctp-surface2 md:w-[calc(768px+100vw-100%)] md:pl-[calc(100vw-100%)]"
             >
                 {children}
                 <Footer />
@@ -38,3 +38,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </html>
     )
 }
+
+/*
+    w-[calc(768px+100vw-100%)] pl-[calc(100vw-100%)]
+    reduce the jitter of the main content when the scrollbar appears
+    inspired by:
+        margin-left: calc(100vw - 100%);
+    or
+        padding-left: calc(100vw - 100%);
+*/

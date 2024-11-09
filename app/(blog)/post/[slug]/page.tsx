@@ -77,7 +77,6 @@ export default function Page({ params }: Readonly<{ params: Params }>) {
                 </div>
             </header>
             <PostRender>{post.content}</PostRender>
-            <footer className="text-center text-xl italic text-ctp-overlay1">--- 完 ---</footer>
         </>
     ) : (
         <p>{`内容遗失在世界的角落 (ノへ￣、)`}</p>
