@@ -1,4 +1,27 @@
 import { defineCollection, defineConfig } from '@content-collections/core'
+import rehypeShiki, { type RehypeShikiOptions } from '@shikijs/rehype'
+import rehypeRaw from 'rehype-raw'
+import rehypeSlug from 'rehype-slug'
+import rehypeStringify, { type Options as RehypeStringifyOptions } from 'rehype-stringify'
+import remarkGfm from 'remark-gfm'
+import remarkParse from 'remark-parse'
+import remarkRehype, { type Options as RemarkRehypeOptions } from 'remark-rehype'
+import { unified } from 'unified'
+
+const render = async (content: string) => {
+    const processor = unified()
+        .use(remarkParse)
+        .use([remarkGfm])
+        .use(remarkRehype, { allowDangerousHtml: true } satisfies RemarkRehypeOptions)
+        .use([rehypeRaw, rehypeSlug, [rehypeShiki, { theme: 'catppuccin-mocha' } satisfies RehypeShikiOptions]])
+        .use(rehypeStringify, {
+            allowDangerousCharacters: true,
+        } satisfies RehypeStringifyOptions)
+
+    const rendered = await processor.process(content)
+
+    return String(rendered)
+}
 
 const posts = defineCollection({
     name: 'posts',
@@ -13,6 +36,13 @@ const posts = defineCollection({
         uuid: z.string().uuid(),
         related: z.array(z.string().uuid()).optional(),
     }),
+    transform: async (doc, { cache }) => {
+        const html = await cache(doc.content, render)
+        return {
+            ...doc,
+            content: html,
+        }
+    },
     onSuccess: docs => {
         console.log(`\n--- generated posts: ${docs.length} ---`)
         for (const doc of docs) {
@@ -67,6 +97,13 @@ const aboutme = defineCollection({
         title: z.string(),
         update: z.string().date(),
     }),
+    transform: async (doc, { cache }) => {
+        const html = await cache(doc.content, render)
+        return {
+            ...doc,
+            content: html,
+        }
+    },
     onSuccess: docs => {
         console.log(`--- generated aboutme: ${docs.length} ---`)
         for (const doc of docs) {
