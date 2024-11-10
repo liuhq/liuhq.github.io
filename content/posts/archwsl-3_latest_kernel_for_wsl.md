@@ -1,11 +1,15 @@
 ---
 title: 'ArchWSL #3 - 为 WSL 编译最新内核（手稿翻译中……）'
-date: 2024-09-02
-update: 2024-10-31
+date: 2024-11-01
+update: 2024-11-04
 tags:
   - WSL
+  - Windows
 pin: false
 uuid: fa183373-9ea1-4699-b8a0-0a61544ba685
+related:
+  - ef57eaa4-92ef-462e-a604-8afdde36274e
+  - 9ad177da-4b40-4d31-a2fa-c2f910847b80
 ---
 
 Download latest kernel from `https://www.kernel.org/`

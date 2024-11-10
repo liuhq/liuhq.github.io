@@ -1,9 +1,10 @@
 ---
 title: 'ArchWSL #1 - 构建 Archlinux WSL 镜像包'
-date: 2024-10-26
+date: 2024-10-21
 update: 2024-11-02
 tags:
   - WSL
+  - Windows
 pin: true
 uuid: ef57eaa4-92ef-462e-a604-8afdde36274e
 related:
